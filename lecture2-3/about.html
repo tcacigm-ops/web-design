@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Tcaci Dumitru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── PAGE-SPECIFIC STYLES for about.html ──────────────────────
+       Additional selectors beyond what style.css already covers.
+    ──────────────────────────────────────────────────────────────── */
+
+    /* DESCENDANT SELECTOR: paragraphs inside .about-body */
+    .about-body p {
+      font-size: 1.01rem;
+      line-height: 1.88;
+      margin-bottom: var(--s5);
+    }
+
+    /* CHILD SELECTOR: direct <em> inside .about-body > p */
+    .about-body > p > em {
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    /* GENERAL SIBLING SELECTOR:
+       every h3 that follows another h3 in .about-body gets top margin */
+    .about-body h3 ~ h3 { margin-top: var(--s8); }
+
+    /* ATTRIBUTE SELECTOR: links to external edu resources */
+    .about-body a[href^="https"] { color: var(--blue); }
+    .about-body a[href^="https"]:hover { color: var(--gold); }
+    .about-body a[href^="https"]::after {
+      content: ' ↗';
+      font-size: .7em;
+      vertical-align: super;
+    }
+
+    /* ATTRIBUTE SELECTOR — data-category interest items
+       (already in style.css for the generic case;
+        here we add page-specific font sizing) */
+    [data-category] p {
+      font-size: .82rem;
+      color: var(--ink-dim);
+      margin-top: var(--s2);
+      margin-bottom: 0;
+      line-height: 1.5;
+    }
+
+    /* PSEUDO-CLASS :first-child — first paragraph in .about-body gets drop-cap feel */
+    .about-body p:first-of-type::first-line {
+      font-weight: 600;
+      color: var(--ink-head);
+      letter-spacing: .01em;
+    }
+
+    /* CONTACT FORM specifics */
+    .contact-wrap {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r3);
+      padding: var(--s8);
+    }
+
+    /* ATTRIBUTE SELECTOR — textarea[name="message"] */
+    textarea[name="message"] { min-height: 150px; }
+
+    /* PSEUDO-CLASS :not() — all inputs except submit */
+    .contact-wrap input:not([type="submit"]):not([type="checkbox"]) {
+      background: var(--bg-raised);
+    }
+
+    /* SKILL PILLS — data attribute selector */
+    .skill-pills { display: flex; flex-wrap: wrap; gap: var(--s2); margin-top: var(--s4); }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" id="site-logo">Tcaci Dumitru</a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html" class="active">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="ticker">
+    <div class="ticker-track">
+      <span class="t-item">BVB BET <span class="up">12,840 +1.2%</span></span>
+      <span class="t-item">EUR/RON <span class="down">4.97 −0.05%</span></span>
+      <span class="t-item">BNR Rate <span class="up">5.75%</span></span>
+      <span class="t-item">CPI YoY <span class="down">6.1%</span></span>
+      <span class="t-item">BVB BET <span class="up">12,840 +1.2%</span></span>
+      <span class="t-item">EUR/RON <span class="down">4.97 −0.05%</span></span>
+      <span class="t-item">BNR Rate <span class="up">5.75%</span></span>
+      <span class="t-item">CPI YoY <span class="down">6.1%</span></span>
+    </div>
+  </div>
+
+  <main>
+    <section class="section">
+      <div class="container">
+
+        <span class="eyebrow fu">About Me</span>
+        <h1 class="fu d1" style="margin-block: var(--s4) var(--s8); font-size:clamp(2rem,4vw,3rem);">
+          The person behind<br><em style="color:var(--gold);">the blog</em>
+        </h1>
+
+        <!-- PROFILE CARD — ID selector, ::before ::after pseudo-elements -->
+        <div id="profile-card" class="fu d2">
+          <div class="avatar">
+            <img
+              src="https://tcacigm-ops.github.io/web-design/IMG_2270_2.JPG"
+              alt="Tcaci Dumitru"
+            />
+          </div>
+          <div>
+            <h2 style="margin-bottom:.2rem;">Tcaci Dumitru</h2>
+            <p style="font-family:var(--font-mono); font-size:.72rem; letter-spacing:.1em;
+               text-transform:uppercase; color:var(--gold); margin-bottom:var(--s4);">
+              Final Year · Finance &amp; Banking · UVT Timișoara
+            </p>
+            <p style="color:var(--ink-dim); font-size:.93rem; max-width:520px; margin-bottom:var(--s4);">
+              Originally from Chișinău, Moldova. Alongside my studies, I work as an operator
+              and consultant helping online education companies grow — which means I spend
+              my days thinking about both financial systems and the business mechanics of
+              scaling digital products.
+            </p>
+            <!-- DATA ATTRIBUTE SELECTOR — skill levels affect border color via CSS -->
+            <div class="skill-pills">
+              <span class="tag tag-monetary"  data-level="advanced">Monetary Policy</span>
+              <span class="tag tag-banking"   data-level="advanced">Banking Regulation</span>
+              <span class="tag tag-markets"   data-level="intermediate">Financial Markets</span>
+              <span class="tag tag-personal"  data-level="intermediate">Investment Analysis</span>
+              <span class="tag tag-career"    data-level="intermediate">Growth Strategy</span>
+              <span class="tag tag-markets"   data-level="beginner">Derivatives</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- MAIN + SIDEBAR LAYOUT -->
+        <div class="layout-sidebar">
+
+          <!-- ABOUT BODY -->
+          <article class="about-body fu d3">
+
+            <div class="sec-head">
+              <h2>Background</h2>
+            </div>
+
+            <p>
+              Growing up in Chișinău, Moldova gave me an <em>early and unfiltered education
+              in economic reality</em>. Moldova sits at the intersection of Eastern European
+              transition economics, currency volatility, and the everyday pressures of a
+              developing market — the kind of context that makes abstract concepts like
+              inflation, capital flight, and banking fragility feel very concrete, very fast.
+              That background shapes how I read financial news and why I'm drawn to questions
+              about monetary stability and institutional trust.
+            </p>
+
+            <p>
+              Choosing to study Finance and Banking at <em>West University of Timișoara</em>
+              was a deliberate step westward — not just geographically, but professionally.
+              Romania's integration into EU financial markets, its evolving regulatory
+              landscape, and its proximity to major banking groups from Austria, France,
+              and Italy made Timișoara an ideal place to understand how European finance
+              actually operates at a regional level.
+            </p>
+
+            <p>
+              Outside of my coursework, I work as an <em>operator and consultant for online
+              education businesses</em>. My role involves growth strategy, funnel optimization,
+              and the financial mechanics of scaling subscription and cohort-based models.
+              It's taught me things no classroom covers: how unit economics drive decisions,
+              how cash flow constraints shape strategy, and how founders think differently
+              from analysts. I bring that operational lens into how I read corporate finance
+              and banking — always asking what the numbers mean for the people running the
+              business, not just the people modeling it.
+            </p>
+
+            <p>
+              Travel is the other constant in my life. Moving between Chișinău, Timișoara,
+              and wherever work takes me has made me comfortable with ambiguity and genuinely
+              curious about how different economies and financial cultures work on the ground.
+              There's no better reminder that <em>finance is a human institution</em> than
+              watching how differently people in different countries relate to banks, credit,
+              and money.
+            </p>
+
+            <!-- BLOCKQUOTE — ::before pseudo-element -->
+            <blockquote>
+              The investor's chief problem — and even his worst enemy — is likely to
+              be himself.
+              <footer style="font-size:.8rem; margin-top:var(--s3); font-style:normal;
+                     color:var(--ink-dim);">— Benjamin Graham</footer>
+            </blockquote>
+
+            <!-- DATA HIGHLIGHT — attribute selector [data-highlight] -->
+            <div data-highlight>
+              <strong style="color:var(--gold);">On this blog:</strong>
+              Every article is referenced against primary sources — BNR publications,
+              INS statistical releases, BVB filings, ECB data, and BIS working papers.
+              Links open the original source directly. If you spot a factual error,
+              please reach out via the contact form below.
+            </div>
+
+            <!-- INTERESTS GRID — [data-category] attribute selector -->
+            <div class="sec-head mt-8">
+              <h2>Interests</h2>
+            </div>
+
+            <div class="grid-3" style="margin-bottom:var(--s8);">
+              <div data-category="central-banking">
+                <div style="font-size:2rem; margin-bottom:var(--s2);">🏛️</div>
+                <h4>Central Banking</h4>
+                <p>Monetary transmission, inflation targeting, and unconventional policy tools.</p>
+              </div>
+              <div data-category="capital-markets">
+                <div style="font-size:2rem; margin-bottom:var(--s2);">📊</div>
+                <h4>Capital Markets</h4>
+                <p>Yield curves, equity valuation, and CEE market dynamics.</p>
+              </div>
+              <div data-category="regulation">
+                <div style="font-size:2rem; margin-bottom:var(--s2);">⚖️</div>
+                <h4>Banking Regulation</h4>
+                <p>Basel accords, macroprudential policy, and EU banking union.</p>
+              </div>
+              <div data-category="cee-economics">
+                <div style="font-size:2rem; margin-bottom:var(--s2);">🌍</div>
+                <h4>CEE Economics</h4>
+                <p>Convergence, sovereign risk, and EU structural funds in Eastern Europe.</p>
+              </div>
+              <div data-category="ed-business">
+                <div style="font-size:2rem; margin-bottom:var(--s2);">💼</div>
+                <h4>Online Education Ops</h4>
+                <p>Unit economics, funnel architecture, and subscription business models.</p>
+              </div>
+              <div data-category="personal-finance">
+                <div style="font-size:2rem; margin-bottom:var(--s2);">💡</div>
+                <h4>Personal Finance</h4>
+                <p>Long-term compounding, Titluri de Stat, and practical investing for students.</p>
+              </div>
+            </div>
+
+          </article>
+
+          <!-- SIDEBAR -->
+          <aside>
+
+            <!-- Education timeline — child selector, pseudo-elements -->
+            <div class="widget">
+              <p class="widget-title">Education</p>
+              <ul class="timeline">
+                <li>
+                  <div class="tl-year">2022 – 2025</div>
+                  <div class="tl-entry">
+                    <h4>B.Sc. Finance &amp; Banking</h4>
+                    <p>West University of Timișoara, FEAA<br>
+                       Monetary Policy · Commercial Banking ·
+                       Financial Markets &amp; Instruments ·
+                       Investment Analysis · International Finance
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <div class="tl-year">2022</div>
+                  <div class="tl-entry">
+                    <h4>High School Diploma</h4>
+                    <p>Chișinău, Moldova</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Experience -->
+            <div class="widget">
+              <p class="widget-title">Experience</p>
+              <ul class="timeline">
+                <li>
+                  <div class="tl-year">2023 – Present</div>
+                  <div class="tl-entry">
+                    <h4>Operator &amp; Growth Consultant</h4>
+                    <p>Online Education · Independent<br>
+                       Growth strategy, funnel architecture,
+                       unit economics, and operational systems
+                       for course and subscription businesses.
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <div class="tl-year">2024 – Summer</div>
+                  <div class="tl-entry">
+                    <h4>Internship — Corporate Banking</h4>
+                    <p>Top-3 Romanian commercial bank<br>
+                       Credit analysis, financial modelling,
+                       and client relationship support.
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Skills proficiency bars — class selectors -->
+            <div class="widget">
+              <p class="widget-title">Proficiency</p>
+              <div class="prog-wrap">
+                <div class="prog-labels"><span>Financial Analysis</span><span>90%</span></div>
+                <div class="prog-track"><div class="prog-fill" style="width:90%"></div></div>
+              </div>
+              <div class="prog-wrap">
+                <div class="prog-labels"><span>Growth Strategy</span><span>85%</span></div>
+                <div class="prog-track"><div class="prog-fill green" style="width:85%"></div></div>
+              </div>
+              <div class="prog-wrap">
+                <div class="prog-labels"><span>Excel / Bloomberg</span><span>80%</span></div>
+                <div class="prog-track"><div class="prog-fill blue" style="width:80%"></div></div>
+              </div>
+              <div class="prog-wrap">
+                <div class="prog-labels"><span>Econometrics (R)</span><span>65%</span></div>
+                <div class="prog-track"><div class="prog-fill red" style="width:65%"></div></div>
+              </div>
+            </div>
+
+            <!-- Languages widget -->
+            <div class="widget">
+              <p class="widget-title">Languages</p>
+              <div class="prog-wrap">
+                <div class="prog-labels"><span>Romanian</span><span>Native</span></div>
+                <div class="prog-track"><div class="prog-fill" style="width:100%"></div></div>
+              </div>
+              <div class="prog-wrap">
+                <div class="prog-labels"><span>Russian</span><span>Native</span></div>
+                <div class="prog-track"><div class="prog-fill" style="width:100%"></div></div>
+              </div>
+              <div class="prog-wrap">
+                <div class="prog-labels"><span>English</span><span>Fluent</span></div>
+                <div class="prog-track"><div class="prog-fill green" style="width:90%"></div></div>
+              </div>
+            </div>
+
+          </aside>
+        </div><!-- end layout-sidebar -->
+
+        <!-- PHILOSOPHY QUOTE — ::before pseudo-element -->
+        <div class="phil-quote mt-8 fu">
+          <blockquote>
+            The last mile of disinflation is always the hardest. You're fighting
+            entrenched expectations, not just raw commodity costs. For students of
+            banking and monetary policy, this moment is a textbook case study in
+            the limits of forward guidance.
+          </blockquote>
+          <p style="color:var(--ink-dim); font-size:.82rem; margin-top:var(--s4); margin-bottom:0;">
+            — From <em>The ECB's Dilemma</em>, March 2025
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTACT — form with attribute + pseudo-class selectors -->
+    <section class="section-sm" style="background:var(--bg-raised); border-top:1px solid var(--border);">
+      <div class="container" style="max-width:680px;">
+        <div class="sec-head">
+          <h2>Get in Touch</h2>
+        </div>
+        <p style="color:var(--ink-dim); margin-bottom:var(--s6);">
+          Questions about an article, topic suggestions, or just want to connect
+          with a fellow Finance &amp; Banking student — I'd love to hear from you.
+        </p>
+
+        <div class="contact-wrap">
+          <form>
+            <div class="grid-2">
+              <div class="form-group">
+                <label for="c-name">Name</label>
+                <!-- input[required] gets gold left-border via CSS -->
+                <input type="text" id="c-name" name="name"
+                       placeholder="Your name" required />
+              </div>
+              <div class="form-group">
+                <label for="c-email">Email</label>
+                <input type="email" id="c-email" name="email"
+                       placeholder="you@example.com" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="c-subject">Subject</label>
+              <input type="text" id="c-subject" name="subject"
+                     placeholder="Article feedback, collaboration…" />
+            </div>
+
+            <div class="form-group">
+              <label for="c-msg">Message</label>
+              <!-- ATTRIBUTE SELECTOR: textarea[name="message"] -->
+              <textarea id="c-msg" name="message"
+                        placeholder="Write your message here…"></textarea>
+            </div>
+
+            <!-- PSEUDO-CLASS :checked via CSS accent-color -->
+            <div style="display:flex; align-items:center; gap:var(--s3); margin-bottom:var(--s6);">
+              <input type="checkbox" id="consent" name="consent" />
+              <label for="consent"
+                     style="font-size:.82rem; color:var(--ink-dim); cursor:pointer;">
+                I agree to having my message used to help improve content on this blog.
+              </label>
+            </div>
+
+            <input type="submit" value="Send Message" />
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" id="site-logo"
+             style="font-size:1.25rem; margin-bottom:var(--s4); display:inline-flex;">
+            Tcaci Dumitru
+          </a>
+          <p style="font-size:.85rem; color:var(--ink-dim); max-width:290px; margin-top:var(--s3);">
+            Final-year Finance &amp; Banking student originally from Chișinău, Moldova.
+            Notes on markets, monetary policy, and the occasional anomaly.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h5>Navigation</h5>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Topics</h5>
+          <ul>
+            <li><a href="blog.html">Monetary Policy</a></li>
+            <li><a href="blog.html">Capital Markets</a></li>
+            <li><a href="blog.html">Personal Finance</a></li>
+            <li><a href="blog.html">Banking Regulation</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Tcaci Dumitru — Finance &amp; Markets Blog</span>
+        <span>West University of Timișoara · Finance &amp; Banking</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
