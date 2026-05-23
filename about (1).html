@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tcaci Dumitru — About</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1a1209;
+      --paper: #f5f0e8;
+      --accent: #8b1a1a;
+      --gold: #c9a84c;
+      --muted: #6b5e4a;
+      --rule: #d4c9b0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--paper);
+      color: var(--ink);
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    header {
+      border-bottom: 3px double var(--ink);
+      padding: 2.5rem 2rem 1.5rem;
+      text-align: center;
+    }
+    header::before {
+      content: "★  FINANCE · BANKING · MARKETS  ★";
+      display: block;
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+    header h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.1;
+    }
+    header p.tagline {
+      margin-top: 0.4rem;
+      font-style: italic;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    nav {
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      padding: 0.85rem 2rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    nav a {
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    nav a:hover, nav a.active { color: var(--accent); }
+
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-top: 1px solid var(--rule);
+      padding-top: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .profile-header {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      margin-bottom: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .profile-header img {
+      width: 160px;
+      height: 200px;
+      object-fit: cover;
+      object-position: center top;
+      border: 1px solid var(--rule);
+      flex-shrink: 0;
+    }
+    .profile-header .bio-text h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.6rem;
+      margin-bottom: 0.25rem;
+    }
+    .profile-header .bio-text .subtitle {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .profile-header .bio-text p { font-size: 0.95rem; margin-bottom: 0.75rem; }
+
+    @media (max-width: 560px) {
+      .profile-header { flex-direction: column; }
+      .profile-header img { width: 100%; height: 260px; }
+    }
+
+    .about-body p { margin-bottom: 1.1rem; font-size: 1rem; }
+
+    .cv-section {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--rule);
+    }
+    .cv-section h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.3rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .cv-section h3::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    .cv-list { list-style: none; padding: 0; }
+    .cv-list li {
+      padding: 0.9rem 0 0.9rem 1.2rem;
+      border-bottom: 1px dashed var(--rule);
+      position: relative;
+      font-size: 0.95rem;
+    }
+    .cv-list li:last-child { border-bottom: none; }
+    .cv-list li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-size: 0.8rem;
+      top: 1rem;
+    }
+    .cv-list li strong {
+      font-weight: 600;
+      display: block;
+      font-size: 0.98rem;
+    }
+    .cv-list li .meta {
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.1rem;
+    }
+    .cv-list li p { margin-top: 0.35rem; color: #3d3328; }
+
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .skill-tag {
+      background: transparent;
+      border: 1px solid var(--muted);
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.7rem;
+    }
+
+    footer {
+      border-top: 3px double var(--ink);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Tcaci Dumitru</h1>
+    <p class="tagline">Notes on finance, banking, and the occasional market anomaly</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html" class="active">About</a>
+  </nav>
+
+  <div class="container">
+    <p class="section-label">About Me</p>
+
+    <div class="profile-header">
+      <img src="IMG_2270_2.JPG" alt="Tcaci Dumitru">
+      <div class="bio-text">
+        <h2>Tcaci Dumitru</h2>
+        <p class="subtitle">Final Year · Finance &amp; Banking · West University of Timișoara</p>
+        <p>
+          I'm a final-year Finance and Banking student originally from Chișinău, Moldova. Alongside my studies, I work as an operator and consultant helping online education companies grow — which means I spend my days thinking about both financial systems and the business mechanics of scaling digital products.
+        </p>
+        <p>
+          This blog is where I connect those two worlds: finance, markets, and the lessons that come from running a real business while still in university.
+        </p>
+      </div>
+    </div>
+
+    <div class="about-body">
+      <p>
+        Growing up in Chișinău, Moldova gave me an early and unfiltered education in economic reality. Moldova sits at the intersection of Eastern European transition economics, currency volatility, and the everyday pressures of a developing market — the kind of context that makes abstract concepts like inflation, capital flight, and banking fragility feel very concrete, very fast. That background shapes how I read financial news and why I'm drawn to questions about monetary stability and institutional trust.
+      </p>
+      <p>
+        Choosing to study Finance and Banking at West University of Timișoara was a deliberate step westward — not just geographically, but professionally. Romania's integration into EU financial markets, its evolving regulatory landscape, and its proximity to major banking groups from Austria, France, and Italy made Timișoara an ideal place to understand how European finance actually operates at a regional level.
+      </p>
+      <p>
+        Outside of my coursework, I work as an operator and consultant for online education businesses. My role involves growth strategy, funnel optimization, and the financial mechanics of scaling subscription and cohort-based models. It's taught me things no classroom covers: how unit economics drive decisions, how cash flow constraints shape strategy, and how founders think differently from analysts. I bring that operational lens into how I read corporate finance and banking — always asking what the numbers mean for the people running the business, not just the people modeling it.
+      </p>
+      <p>
+        Travel is the other constant in my life. Moving between Chișinău, Timișoara, and wherever work takes me has made me comfortable with ambiguity and genuinely curious about how different economies and financial cultures work on the ground. There's no better reminder that finance is a human institution than watching how differently people in different countries relate to banks, credit, and money.
+      </p>
+    </div>
+
+    <!-- EDUCATION -->
+    <div class="cv-section">
+      <h3>Education</h3>
+      <ul class="cv-list">
+        <li>
+          <strong>B.Sc. Finance and Banking (Final Year)</strong>
+          <span class="meta">West University of Timișoara, FEAA · 2022 – 2025</span>
+          <p>Relevant courses: Monetary Policy, Commercial Banking, Financial Markets &amp; Instruments, Investment Analysis, International Finance, Quantitative Methods.</p>
+        </li>
+        <li>
+          <strong>High School Diploma</strong>
+          <span class="meta">Chișinău, Moldova · Graduated 2022</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <div class="cv-section">
+      <h3>Experience</h3>
+      <ul class="cv-list">
+        <li>
+          <strong>Operator &amp; Growth Consultant — Online Education</strong>
+          <span class="meta">Independent · 2023 – Present</span>
+          <p>Work with online education companies to scale revenue and operations. Focus areas include growth strategy, funnel architecture, unit economics, and operational systems. Managed projects spanning course launches, community platforms, and subscription businesses.</p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="cv-section">
+      <h3>Skills</h3>
+      <div class="skills-grid">
+        <span class="skill-tag">Financial Analysis</span>
+        <span class="skill-tag">Growth Strategy</span>
+        <span class="skill-tag">Unit Economics</span>
+        <span class="skill-tag">Funnel Optimization</span>
+        <span class="skill-tag">Monetary Policy</span>
+        <span class="skill-tag">Banking &amp; Regulation</span>
+        <span class="skill-tag">Excel / Modeling</span>
+        <span class="skill-tag">Romanian (native)</span>
+        <span class="skill-tag">Russian (native)</span>
+        <span class="skill-tag">English (fluent)</span>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Tcaci Dumitru — Finance &amp; Banking Blog &nbsp;·&nbsp; West University of Timișoara</p>
+  </footer>
+
+</body>
+</html>
