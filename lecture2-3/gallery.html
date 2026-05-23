@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery — Tcaci Dumitru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --ink:        #0d0d0d;
+      --paper:      #f5f2ed;
+      --cream:      #ede9e2;
+      --gold:       #c9a84c;
+      --gold-light: #e8d08a;
+      --rust:       #b94c2e;
+      --teal:       #1f6b6b;
+      --muted:      #7a7267;
+      --border:     rgba(13,13,13,0.12);
+
+      --serif:  'Playfair Display', Georgia, serif;
+      --sans:   'DM Sans', sans-serif;
+      --mono:   'DM Mono', monospace;
+
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ─── RESET ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img { display: block; width: 100%; }
+    a   { text-decoration: none; color: inherit; }
+
+    /* ─── TICKER ─────────────────────────────────────────────── */
+    .ticker-wrap {
+      background: var(--ink);
+      color: var(--gold);
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      overflow: hidden;
+      padding: 6px 0;
+      border-bottom: 1px solid #2a2a2a;
+    }
+    .ticker-track {
+      display: flex;
+      gap: 3rem;
+      white-space: nowrap;
+      animation: ticker 30s linear infinite;
+    }
+    .ticker-track span { opacity: 0.85; }
+    .ticker-track .up   { color: #6fcf97; }
+    .ticker-track .down { color: #eb5757; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ─── NAV ────────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--paper);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(1.2rem, 4vw, 3rem);
+      height: 60px;
+      backdrop-filter: blur(8px);
+      background: rgba(245,242,237,0.92);
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      transition: opacity 0.2s;
+    }
+    .nav-logo:hover { opacity: 0.65; }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1.5px;
+      background: var(--gold);
+      transition: width 0.3s var(--ease-out-expo);
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--ink); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px; height: 2px;
+      background: var(--ink);
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--paper);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--serif);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.4s var(--ease-out-expo) forwards;
+    }
+    .mobile-menu a:nth-child(1) { animation-delay: 0.05s; }
+    .mobile-menu a:nth-child(2) { animation-delay: 0.12s; }
+    .mobile-menu a:nth-child(3) { animation-delay: 0.19s; }
+    .mobile-menu a:nth-child(4) { animation-delay: 0.26s; }
+
+    /* ─── HERO ───────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: clamp(340px, 45vh, 520px);
+      display: flex;
+      align-items: flex-end;
+      padding: clamp(2rem, 6vw, 5rem) clamp(1.2rem, 6vw, 5rem);
+      overflow: hidden;
+      background: var(--ink);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 70% at 80% 40%, rgba(201,168,76,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 80% at 10% 80%, rgba(31,107,107,0.2) 0%, transparent 55%),
+        var(--ink);
+    }
+
+    /* grid lines overlay */
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 820px; }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.6s var(--ease-out-expo) 0.1s forwards;
+    }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 7vw, 6rem);
+      font-weight: 900;
+      line-height: 0.95;
+      color: var(--paper);
+      letter-spacing: -0.03em;
+      opacity: 0;
+      animation: fadeUp 0.7s var(--ease-out-expo) 0.2s forwards;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      margin-top: 1.4rem;
+      font-size: clamp(0.88rem, 1.6vw, 1rem);
+      color: rgba(245,242,237,0.55);
+      max-width: 480px;
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeUp 0.7s var(--ease-out-expo) 0.35s forwards;
+    }
+
+    .hero-meta {
+      margin-top: 2rem;
+      display: flex;
+      gap: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.6s var(--ease-out-expo) 0.5s forwards;
+    }
+    .hero-stat { text-align: left; }
+    .hero-stat .num {
+      font-family: var(--mono);
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .hero-stat .label {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(245,242,237,0.4);
+      margin-top: 2px;
+    }
+
+    /* ─── FILTER BAR ─────────────────────────────────────────── */
+    .filter-bar {
+      border-bottom: 1px solid var(--border);
+      padding: 0 clamp(1.2rem, 6vw, 5rem);
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .filter-bar::-webkit-scrollbar { display: none; }
+
+    .filter-btn {
+      flex-shrink: 0;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 1rem 1.4rem;
+      border: none;
+      background: none;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .filter-btn:hover { color: var(--ink); }
+    .filter-btn.active {
+      color: var(--ink);
+      border-bottom-color: var(--gold);
+    }
+
+    /* ─── MAIN LAYOUT ────────────────────────────────────────── */
+    .gallery-wrap {
+      padding: clamp(2.5rem, 6vw, 5rem) clamp(1.2rem, 6vw, 5rem);
+    }
+
+    /* ─── FEATURED ROW ───────────────────────────────────────── */
+    .featured-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5px;
+      margin-bottom: 1.5px;
+    }
+
+    /* ─── CARD GRID ──────────────────────────────────────────── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    /* ─── GALLERY CARD ───────────────────────────────────────── */
+    .g-card {
+      position: relative;
+      background: var(--cream);
+      overflow: hidden;
+      cursor: pointer;
+      border-radius: 2px;
+
+      /* entrance animation */
+      opacity: 0;
+      transform: translateY(28px);
+      transition:
+        opacity 0.55s var(--ease-out-expo),
+        transform 0.55s var(--ease-out-expo),
+        box-shadow 0.3s;
+    }
+    .g-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .g-card:hover {
+      box-shadow: 0 20px 60px rgba(13,13,13,0.14);
+      z-index: 2;
+    }
+
+    /* image wrapper */
+    .g-card__img {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      position: relative;
+    }
+    .g-card__img img {
+      object-fit: cover;
+      height: 100%;
+      transition: transform 0.65s var(--ease-out-expo);
+    }
+    .g-card:hover .g-card__img img { transform: scale(1.07); }
+
+    /* category pill */
+    .g-card__cat {
+      position: absolute;
+      top: 14px; left: 14px;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 2px;
+      background: var(--ink);
+      color: var(--gold);
+      z-index: 1;
+    }
+
+    /* overlay on hover */
+    .g-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(13,13,13,0.72) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.35s;
+    }
+    .g-card:hover .g-card__overlay { opacity: 1; }
+
+    /* zoom icon */
+    .g-card__zoom {
+      position: absolute;
+      bottom: 16px; right: 16px;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.9);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0;
+      transform: scale(0.7);
+      transition: opacity 0.3s, transform 0.3s var(--ease-out-expo);
+    }
+    .g-card:hover .g-card__zoom {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .g-card__zoom svg { width: 16px; fill: var(--ink); }
+
+    /* card body */
+    .g-card__body {
+      padding: 1.2rem 1.3rem 1.4rem;
+    }
+    .g-card__date {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 0.45rem;
+    }
+    .g-card__title {
+      font-family: var(--serif);
+      font-size: clamp(1rem, 1.4vw, 1.18rem);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--ink);
+      margin-bottom: 0.55rem;
+      transition: color 0.2s;
+    }
+    .g-card:hover .g-card__title { color: var(--teal); }
+
+    .g-card__desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.65;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .g-card__footer {
+      margin-top: 1rem;
+      padding-top: 0.9rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .g-card__read {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .g-card__arrow {
+      font-size: 0.9rem;
+      color: var(--gold);
+      transform: translateX(0);
+      transition: transform 0.25s var(--ease-out-expo);
+    }
+    .g-card:hover .g-card__arrow { transform: translateX(5px); }
+
+    /* ─── LARGE CARD (featured) ──────────────────────────────── */
+    .g-card--large .g-card__img { aspect-ratio: 16/9; }
+    .g-card--large .g-card__title {
+      font-size: clamp(1.2rem, 2vw, 1.6rem);
+    }
+
+    /* ─── HIGHLIGHT CARD (dark bg) ──────────────────────────── */
+    .g-card--dark {
+      background: var(--ink);
+    }
+    .g-card--dark .g-card__title { color: var(--paper); }
+    .g-card--dark .g-card__date  { color: rgba(245,242,237,0.4); }
+    .g-card--dark .g-card__desc  { color: rgba(245,242,237,0.5); }
+    .g-card--dark .g-card__footer { border-color: rgba(245,242,237,0.1); }
+    .g-card--dark .g-card__read  { color: rgba(245,242,237,0.4); }
+    .g-card--dark:hover .g-card__title { color: var(--gold); }
+
+    /* ─── QUOTE CARD ─────────────────────────────────────────── */
+    .g-card--quote {
+      background: var(--gold);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 2rem;
+      min-height: 260px;
+    }
+    .g-card--quote .quote-mark {
+      font-family: var(--serif);
+      font-size: 4rem;
+      line-height: 1;
+      color: rgba(13,13,13,0.2);
+      margin-bottom: 0.5rem;
+    }
+    .g-card--quote .quote-text {
+      font-family: var(--serif);
+      font-size: clamp(1rem, 1.6vw, 1.25rem);
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--ink);
+      font-style: italic;
+    }
+    .g-card--quote .quote-attr {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(13,13,13,0.55);
+      margin-top: 1.2rem;
+    }
+
+    /* ─── SECTION DIVIDER ────────────────────────────────────── */
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      margin-top: 3.5rem;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo);
+    }
+    .section-label.visible { opacity: 1; transform: translateX(0); }
+
+    .section-label__text {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .section-label__line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .section-label__num {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+
+    /* ─── LIGHTBOX ───────────────────────────────────────────── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(13,13,13,0.92);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      backdrop-filter: blur(6px);
+    }
+    .lightbox.open { display: flex; }
+
+    .lightbox__inner {
+      position: relative;
+      max-width: 860px;
+      width: 100%;
+      animation: scaleIn 0.35s var(--ease-out-expo);
+    }
+    .lightbox__img {
+      width: 100%;
+      border-radius: 3px;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+    }
+    .lightbox__caption {
+      margin-top: 1rem;
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-style: italic;
+      color: rgba(245,242,237,0.75);
+      text-align: center;
+    }
+    .lightbox__close {
+      position: absolute;
+      top: -14px; right: -14px;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--ink);
+      font-weight: 700;
+      transition: transform 0.2s;
+    }
+    .lightbox__close:hover { transform: rotate(90deg); }
+
+    /* ─── BACK TO TOP ────────────────────────────────────────── */
+    .back-top {
+      position: fixed;
+      bottom: 2rem; right: 2rem;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--ink);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--gold);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 50;
+    }
+    .back-top.show { opacity: 1; transform: translateY(0); }
+    .back-top:hover { background: #1a1a1a; }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem clamp(1.2rem, 6vw, 5rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 4rem;
+    }
+    .footer-logo {
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .footer-copy {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+    .footer-links {
+      display: flex; gap: 1.5rem; list-style: none;
+    }
+    .footer-links a {
+      font-size: 0.78rem;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--ink); }
+
+    /* ─── KEYFRAMES ──────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.92); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .card-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 700px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .hero-meta { gap: 1.2rem; }
+      .hero-stat .num { font-size: 1.2rem; }
+
+      .card-grid { grid-template-columns: 1fr; }
+
+      .featured-row { grid-template-columns: 1fr; }
+
+      footer { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+      .footer-links { flex-wrap: wrap; }
+    }
+
+    @media (max-width: 420px) {
+      .hero-title { font-size: 2.4rem; }
+      .filter-btn { padding: 0.9rem 1rem; font-size: 0.65rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── TICKER ──────────────────────────────────────────────── -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track">
+    <span>BVB BET <strong>12,840</strong> <span class="up">+1.2%</span></span>
+    <span>EUR/RON <strong>4.97</strong> <span class="down">−0.05%</span></span>
+    <span>USD/RON <strong>4.62</strong> <span class="up">+0.3%</span></span>
+    <span>BNR Rate <strong>5.75%</strong></span>
+    <span>CPI YoY <strong>6.1%</strong></span>
+    <span>ROBOR 3M <strong>5.92%</strong></span>
+    <span>10Y Gov <strong>6.48%</strong></span>
+    <span>DAX <strong>17,920</strong> <span class="up">+0.8%</span></span>
+    <span>S&amp;P 500 <strong>5,210</strong> <span class="up">+0.6%</span></span>
+    <!-- duplicate for seamless loop -->
+    <span>BVB BET <strong>12,840</strong> <span class="up">+1.2%</span></span>
+    <span>EUR/RON <strong>4.97</strong> <span class="down">−0.05%</span></span>
+    <span>USD/RON <strong>4.62</strong> <span class="up">+0.3%</span></span>
+    <span>BNR Rate <strong>5.75%</strong></span>
+    <span>CPI YoY <strong>6.1%</strong></span>
+    <span>ROBOR 3M <strong>5.92%</strong></span>
+    <span>10Y Gov <strong>6.48%</strong></span>
+    <span>DAX <strong>17,920</strong> <span class="up">+0.8%</span></span>
+    <span>S&amp;P 500 <strong>5,210</strong> <span class="up">+0.6%</span></span>
+  </div>
+</div>
+
+<!-- ─── NAV ─────────────────────────────────────────────────── -->
+<nav>
+  <a href="index.html" class="nav-logo">Tcaci Dumitru</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="gallery.html" class="active">Gallery</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="blog.html">Blog</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="about.html">About</a>
+</div>
+
+<!-- ─── HERO ─────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Visual Archive · 2024–2025</p>
+    <h1 class="hero-title">
+      Finance<br /><em>in Focus</em>
+    </h1>
+    <p class="hero-sub">
+      A curated collection of charts, infographics, and field notes
+      from my final year studying Finance &amp; Banking at West University
+      of Timișoara.
+    </p>
+    <div class="hero-meta">
+      <div class="hero-stat">
+        <div class="num">18</div>
+        <div class="label">Visuals</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">6</div>
+        <div class="label">Topics</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">2025</div>
+        <div class="label">Spring Semester</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FILTER BAR ───────────────────────────────────────────── -->
+<div class="filter-bar" role="tablist" aria-label="Filter by topic">
+  <button class="filter-btn active" data-filter="all" role="tab">All</button>
+  <button class="filter-btn" data-filter="monetary" role="tab">Monetary Policy</button>
+  <button class="filter-btn" data-filter="markets" role="tab">Markets</button>
+  <button class="filter-btn" data-filter="banking" role="tab">Banking</button>
+  <button class="filter-btn" data-filter="personal" role="tab">Personal Finance</button>
+  <button class="filter-btn" data-filter="career" role="tab">Career</button>
+</div>
+
+<!-- ─── GALLERY ──────────────────────────────────────────────── -->
+<main class="gallery-wrap">
+
+  <!-- Featured row -->
+  <div class="section-label" id="sl-feat">
+    <span class="section-label__text">Featured</span>
+    <div class="section-label__line"></div>
+    <span class="section-label__num">01</span>
+  </div>
+
+  <div class="featured-row">
+    <!-- Featured large card -->
+    <div class="g-card g-card--large" data-cat="monetary" data-img="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=900&q=80" data-title="ECB Headquarters, Frankfurt — February 2025">
+      <div class="g-card__img">
+        <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=900&q=80" alt="Stock market analysis" loading="lazy" />
+        <span class="g-card__cat">Monetary Policy</span>
+        <div class="g-card__overlay"></div>
+        <div class="g-card__zoom">
+          <svg viewBox="0 0 24 24"><path d="M15 3h6v6h-2V5h-4V3zm6 18h-6v-2h4v-4h2v6zM3 21V15h2v4h4v2H3zm0-18h6v2H5v4H3V3z"/></svg>
+        </div>
+      </div>
+      <div class="g-card__body">
+        <div class="g-card__date">March 4, 2025</div>
+        <h2 class="g-card__title">The ECB's Dilemma: Cutting Rates in an Uncertain Europe</h2>
+        <p class="g-card__desc">When inflation retreats from its peak but services remain sticky — how fast and how far should rates fall?</p>
+        <div class="g-card__footer">
+          <span class="g-card__read">8 min read</span>
+          <span class="g-card__arrow">→</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quote card -->
+    <div class="g-card g-card--quote" data-cat="monetary">
+      <div>
+        <div class="quote-mark">"</div>
+        <p class="quote-text">The last mile of disinflation is always the hardest. You're fighting entrenched expectations, not just raw commodity costs.</p>
+      </div>
+      <div class="quote-attr">— Tcaci Dumitru · The ECB's Dilemma, March 2025</div>
+    </div>
+  </div>
+
+  <!-- Card grid -->
+  <div class="section-label" id="sl-all">
+    <span class="section-label__text">All Entries</span>
+    <div class="section-label__line"></div>
+    <span class="section-label__num">02</span>
+  </div>
+
+  <div class="card-grid" id="cardGrid">
+
+    <!-- 1 -->
+    <div class="g-card" data-cat="markets"
+         data-img="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=700&q=80"
+         data-title="Yield Curve Inversion — BNR Data, Q1 2025">
+      <div class="g-card__img">
+        <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=700&q=80" alt="Financial charts" loading="lazy" />
+        <span class="g-card__cat">Markets</span>
+        <div class="g-card__overlay"></div>
+        <div class="g-card__zoom"><svg viewBox="0 0 24 24"><path d="M15 3h6v6h-2V5h-4V3zm6 18h-6v-2h4v-4h2v6zM3 21V15h2v4h4v2H3zm0-18h6v2H5v4H3V3z"/></svg></div>
+      </div>
+      <div class="g-card__body">
+        <div class="g-card__date">Feb 18, 2025</div>
+        <h3 class="g-card__title">Why the Yield Curve Still Matters (Even When It's Wrong)</h3>
+        <p class="g-card__desc">Longest inversion in modern history, yet the predicted recession hasn't arrived.</p>
+        <div class="g-card__footer">
+          <span class="g-card__read">6 min read</span>
+          <span class="g-card__arrow">→</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="g-card g-card--dark" data-cat="banking"
+         data-img="https://images.unsplash.com/photo-1541354329998-f4d9a9f9297f?w=700&q=80"
+         data-title="Basel III Capital Tiers — Regulatory Overview">
+      <div class="g-card__img">
+        <img src="https://images.unsplash.com/photo-1541354329998-f4d9a9f9297f?w=700&q=80" alt="Bank building" loading="lazy" />
+        <span class="g-card__cat">Banking</span>
+        <div class="g-card__overlay"></div>
+        <div class="g-card__zoom"><svg viewBox="0 0 24 24"><path d="M15 3h6v6h-2V5h-4V3zm6 18h-6v-2h4v-4h2v6zM3 21V15h2v4h4v2H3zm0-18h6v2H5v4H3V3z"/></svg></div>
+      </div>
+      <div class="g-card__body">
+        <div class="g-card__date">Feb 3, 2025</div>
+        <h3 class="g-card__title">Basel III Endgame: What It Means for Romanian Banks</h3>
+        <p class="g-card__desc">The downstream effects on CEE institutions — many of them Austrian and French subsidiaries.</p>
+        <div class="g-card__footer">
+          <span class="g-card__read">7 min read</span>
+          <span class="g-card__arrow">→</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="g-card" data-cat="personal"
+         data-img="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=700&q=80"
+         data-title="Compound Interest — Long Run Projection">
+      <div class="g-card__img">
+        <img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=700&q=80" alt="Savings growth" loading="lazy" />
+        <span class="g-card__cat">Personal Finance</span>
+        <div class="g-card__overlay"></div>
+        <div class="g-card__zoom"><svg viewBox="0 0 24 24"><path d="M15 3h6v6h-2V5h-4V3zm6 18h-6v-2h4v-4h2v6zM3 21V15h2v4h4v2H3zm0-18h6v2H5v4H3V3z"/></svg></div>
+      </div>
+      <div class="g-card__body">
+        <div class="g-card__date">Jan 20, 2025</div>
+        <h3 class="g-card__title">Compounding Is Boring. That's Exactly the Point.</h3>
+        <p class="g-card__desc">The strange gap between knowing the formula and actually acting on it.</p>
+        <div class="g-card__footer">
+          <span class="g-card__read">5 min read</span>
+          <span class="g-card__arrow">→</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="g-card" data-cat="career"
+         data-img="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=700&q=80"
+         data-title="Corporate Banking Internship — Timișoara, 2024">
+      <div class="g-card__img">
+        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=700&q=80" alt="Office work" loading="lazy" />
+        <span class="g-card__cat">Career</span>
+        <div class="g-card__overlay"></div>
+        <div class="g-card__zoom"><svg viewBox="0 0 24 24"><path d="M15 3h6v6h-2V5h-4V3zm6 18h-6v-2h4v-4h2v6zM3 21V15h2v4h4v2H3zm0-18h6v2H5v4H3V3z"/></svg></div>
+      </div>
+      <div class="g-card__body">
+        <div class="g-card__date">Jan 7, 2025</div>
+        <h3 class="g-card__title">Six Months at a Commercial Bank: What I Actually Learned</h3>
+        <p class="g-card__desc">The most useful skill had nothing to do with spreadsheets.</p>
+        <div class="g-card__footer">
+          <span class="g-card__read">9 min read</span>
+          <span class="g-card__arrow">→</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="g-card g-card--dark" data-cat="monetary"
+         data-img="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=700&q=80"
+         data-title="BNR Rate Decision — Policy Board Meeting, Q1 2025">
+      <div class="g-card__img">
+        <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=700&q=80" alt="National bank" loading="lazy" />
+        <span class="g-card__cat">Monetary Policy</span>
+        <div class="g-card__overlay"></div>
+        <div class="g-card__zoom"><svg viewBox="0 0 24 24"><path d="M15 3h6v6h-2V5h-4V3zm6 18h-6v-2h4v-4h2v6zM3 21V15h2v4h4v2H3zm0-18h6v2H5v4H3V3z"/></svg></div>
+      </div>
+      <div class="g-card__body">
+        <div class="g-card__date">May 18, 2025</div>
+        <h3 class="g-card__title">BNR's Disinflation Path: What Students Must Understand</h3>
+        <p class="g-card__desc">The BNR held its rate at 5.75% despite falling headline inflation — why?</p>
+        <div class="g-card__footer">
+          <span class="g-card__read">8 min read</span>
+          <span class="g-card__arrow">→</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="g-card" data-cat="markets"
+         data-img="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700&q=80"
+         data-title="Romanian Sovereign Bond Spreads — 2024 Fiscal Data">
+      <div class="g-card__img">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700&q=80" alt="Financial data" loading="lazy" />
+        <span class="g-card__cat">Markets</span>
+        <div class="g-card__overlay"></div>
+        <div class="g-card__zoom"><svg viewBox="0 0 24 24"><path d="M15 3h6v6h-2V5h-4V3zm6 18h-6v-2h4v-4h2v6zM3 21V15h2v4h4v2H3zm0-18h6v2H5v4H3V3z"/></svg></div>
+      </div>
+      <div class="g-card__body">
+        <div class="g-card__date">Mar 10, 2025</div>
+        <h3 class="g-card__title">Fiscal Deficit and Romanian Bond Spreads</h3>
+        <p class="g-card__desc">Romania's deficit widened to 8% of GDP — how sovereign risk has repriced.</p>
+        <div class="g-card__footer">
+          <span class="g-card__read">9 min read</span>
+          <span class="g-card__arrow">→</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /card-grid -->
+</main>
+
+<!-- ─── FOOTER ────────────────────────────────────────────────── -->
+<footer>
+  <a href="index.html" class="footer-logo">Tcaci Dumitru</a>
+  <ul class="footer-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 · West University of Timișoara · Finance &amp; Banking</p>
+</footer>
+
+<!-- ─── BACK TO TOP ───────────────────────────────────────────── -->
+<button class="back-top" id="backTop" aria-label="Back to top">↑</button>
+
+<!-- ─── LIGHTBOX ─────────────────────────────────────────────── -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox">
+  <div class="lightbox__inner">
+    <button class="lightbox__close" id="lbClose" aria-label="Close">✕</button>
+    <img class="lightbox__img" id="lbImg" src="" alt="" />
+    <p class="lightbox__caption" id="lbCaption"></p>
+  </div>
+</div>
+
+<!-- ─── JS ───────────────────────────────────────────────────── -->
+<script>
+  /* ── Hamburger ──────────────────────────────────────────── */
+  const hamburger   = document.getElementById('hamburger');
+  const mobileMenu  = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    const open = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  mobileMenu.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      document.body.style.overflow = '';
+    })
+  );
+
+  /* ── Scroll-reveal ──────────────────────────────────────── */
+  const revealEls = document.querySelectorAll('.g-card, .section-label');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        // stagger cards in the same batch
+        const delay = e.target.classList.contains('g-card')
+          ? Array.from(e.target.parentElement.children).indexOf(e.target) * 80
+          : 0;
+        setTimeout(() => e.target.classList.add('visible'), delay);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => io.observe(el));
+
+  /* ── Filter ─────────────────────────────────────────────── */
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const allCards   = document.querySelectorAll('#cardGrid .g-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      allCards.forEach(card => {
+        const match = f === 'all' || card.dataset.cat === f;
+        card.style.transition = 'opacity 0.3s, transform 0.3s';
+        if (match) {
+          card.style.display = '';
+          requestAnimationFrame(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          });
+        } else {
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(12px)';
+          setTimeout(() => { card.style.display = 'none'; }, 300);
+        }
+      });
+    });
+  });
+
+  /* ── Lightbox ───────────────────────────────────────────── */
+  const lightbox  = document.getElementById('lightbox');
+  const lbImg     = document.getElementById('lbImg');
+  const lbCaption = document.getElementById('lbCaption');
+  const lbClose   = document.getElementById('lbClose');
+
+  document.querySelectorAll('.g-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const src  = card.dataset.img;
+      const cap  = card.dataset.title;
+      if (!src) return;
+      lbImg.src = src;
+      lbImg.alt = cap || '';
+      lbCaption.textContent = cap || '';
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeLb() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+  lbClose.addEventListener('click', closeLb);
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLb(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+  /* ── Back to top ────────────────────────────────────────── */
+  const backTop = document.getElementById('backTop');
+  window.addEventListener('scroll', () => {
+    backTop.classList.toggle('show', window.scrollY > 400);
+  });
+  backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>
