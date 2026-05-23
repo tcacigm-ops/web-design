@@ -1,1 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tcaci Dumitru — Finance &amp; Markets Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
+  <!-- ================================================
+       HEADER
+  ================================================= -->
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" id="site-logo">Tcaci Dumitru</a>
+      <nav class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- TICKER — class selector, :hover pseudo-class, ::before pseudo-elements -->
+  <div class="ticker">
+    <div class="ticker-track">
+      <span class="t-item">BVB BET <span class="up">12,840 +1.2%</span></span>
+      <span class="t-item">EUR/RON <span class="down">4.97 −0.05%</span></span>
+      <span class="t-item">USD/RON <span class="up">4.62 +0.3%</span></span>
+      <span class="t-item">BNR Rate <span class="up">5.75%</span></span>
+      <span class="t-item">CPI YoY <span class="down">6.1%</span></span>
+      <span class="t-item">ROBOR 3M <span class="up">5.92%</span></span>
+      <span class="t-item">10Y Gov <span class="up">6.48%</span></span>
+      <span class="t-item">DAX <span class="up">17,920 +0.8%</span></span>
+      <span class="t-item">S&amp;P 500 <span class="up">5,210 +0.6%</span></span>
+      <!-- duplicate for seamless loop -->
+      <span class="t-item">BVB BET <span class="up">12,840 +1.2%</span></span>
+      <span class="t-item">EUR/RON <span class="down">4.97 −0.05%</span></span>
+      <span class="t-item">USD/RON <span class="up">4.62 +0.3%</span></span>
+      <span class="t-item">BNR Rate <span class="up">5.75%</span></span>
+      <span class="t-item">CPI YoY <span class="down">6.1%</span></span>
+      <span class="t-item">ROBOR 3M <span class="up">5.92%</span></span>
+      <span class="t-item">10Y Gov <span class="up">6.48%</span></span>
+      <span class="t-item">DAX <span class="up">17,920 +0.8%</span></span>
+      <span class="t-item">S&amp;P 500 <span class="up">5,210 +0.6%</span></span>
+    </div>
+  </div>
+
+  <!-- ================================================
+       HERO — ID selector, ::before ::after pseudo-elements
+  ================================================= -->
+  <section class="hero" id="hero-home">
+    <div class="container">
+      <span class="eyebrow fu">Finance &amp; Markets Blog</span>
+      <h1 class="hero-title fu d1">
+        Notes on finance,<br>banking, and the<br>
+        <em>occasional market anomaly</em>
+      </h1>
+      <p class="hero-sub fu d2">
+        Written during my final year in Finance &amp; Banking at West University of
+        Timișoara. Growing up in Chișinău, Moldova gave me an early education in
+        what economic instability actually feels like — this blog is how I process
+        what the textbooks say about it.
+      </p>
+      <div class="flex gap-s4 fu d3">
+        <a href="blog.html" class="btn btn-gold">Read Articles</a>
+        <a href="about.html" class="btn btn-outline">About Me</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       MAIN
+  ================================================= -->
+  <main>
+
+    <!-- FEATURED POST — ID selector, ::after watermark -->
+    <section class="section">
+      <div class="container">
+
+        <div id="featured" class="fu">
+          <!-- left: text -->
+          <div>
+            <span class="eyebrow" style="margin-bottom:var(--s5); display:inline-flex;">Featured · March 2025</span>
+            <span class="tag tag-monetary mb-4" style="display:inline-block; margin-bottom:.9rem;">Monetary Policy</span>
+            <h2 style="margin-bottom:var(--s4); font-size:clamp(1.4rem,2.5vw,2rem);">
+              The ECB's Dilemma: Cutting Rates in an Uncertain Europe
+            </h2>
+            <p style="color:var(--ink-dim); font-size:.93rem; margin-bottom:var(--s5);">
+              When the European Central Bank gathered in Frankfurt last February,
+              the agenda was dominated by a single question: how fast, and how far,
+              should rates fall? European inflation has retreated from its 2022 peak
+              of over 10%, yet beneath that headline number, services inflation
+              remains sticky and wage growth in Germany outpaces productivity.
+            </p>
+            <div class="meta" style="margin-bottom:var(--s5);">
+              <span>Tcaci Dumitru</span>
+              <span>March 4, 2025</span>
+              <span>8 min read</span>
+            </div>
+            <a href="blog.html" class="btn btn-gold">Read Article</a>
+          </div>
+          <!-- right: photo -->
+          <div class="featured-art">
+            <img
+              src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=720&q=80"
+              alt="European Central Bank building in Frankfurt"
+              class="featured-img"
+            />
+          </div>
+        </div>
+
+        <!-- SECTION HEADING — ::after line pseudo-element -->
+        <div class="sec-head">
+          <h2>Latest Posts</h2>
+        </div>
+
+        <!-- CARDS GRID — grid layout + :hover pseudo-class -->
+        <div class="grid-3">
+
+          <!-- Card 1 -->
+          <article class="card fu d1">
+            <img
+              src="https://images.unsplash.com/photo-1541354329998-f4d9a9f9297f?w=600&q=75"
+              alt="Bank building columns"
+              class="card-thumb"
+            />
+            <div class="card-body">
+              <span class="tag tag-banking">Banking</span>
+              <h3 class="card-title">Basel III Endgame: What It Actually Means for Romanian Banks</h3>
+              <p class="card-desc">
+                The final Basel III capital reforms are approaching EU implementation.
+                While coverage focuses on G-SIBs, the effects on CEE institutions —
+                many of them Austrian and French subsidiaries — are equally important.
+              </p>
+            </div>
+            <div class="card-foot">
+              <span>Feb 3, 2025</span>
+              <span>7 min</span>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="card fu d2">
+            <div class="card-thumb-ph">📈</div>
+            <div class="card-body">
+              <span class="tag tag-markets">Capital Markets</span>
+              <h3 class="card-title">Why the Yield Curve Still Matters (Even When It's Wrong)</h3>
+              <p class="card-desc">
+                The yield curve has been inverted longer than almost any period in
+                modern history, yet the predicted recession hasn't arrived in the
+                form anyone expected. A look at the mechanism — and the delay.
+              </p>
+            </div>
+            <div class="card-foot">
+              <span>Feb 18, 2025</span>
+              <span>6 min</span>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="card fu d3">
+            <img
+              src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&q=75"
+              alt="Office desk with financial reports"
+              class="card-thumb"
+            />
+            <div class="card-body">
+              <span class="tag tag-career">Career</span>
+              <h3 class="card-title">What Six Months at a Commercial Bank Actually Taught Me</h3>
+              <p class="card-desc">
+                I completed a six-month internship in the Corporate Banking division
+                of one of Romania's top-three commercial banks. The most useful skill
+                had nothing to do with spreadsheets.
+              </p>
+            </div>
+            <div class="card-foot">
+              <span>Jan 7, 2025</span>
+              <span>9 min</span>
+            </div>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="card fu d1">
+            <div class="card-thumb-ph">💡</div>
+            <div class="card-body">
+              <span class="tag tag-personal">Personal Finance</span>
+              <h3 class="card-title">Compounding Is Boring. That's Exactly the Point.</h3>
+              <p class="card-desc">
+                Everyone in finance knows the compound interest formula. Not everyone
+                internalizes it. There's a strange gap between intellectual knowledge
+                and behavioral action — and I've been thinking about why it exists.
+              </p>
+            </div>
+            <div class="card-foot">
+              <span>Jan 20, 2025</span>
+              <span>5 min</span>
+            </div>
+          </article>
+
+          <!-- Card 5 -->
+          <article class="card fu d2">
+            <div class="card-thumb-ph">🇷🇴</div>
+            <div class="card-body">
+              <span class="tag tag-monetary">Monetary Policy</span>
+              <h3 class="card-title">BNR's Disinflation Path: What Students Must Understand</h3>
+              <p class="card-desc">
+                The National Bank of Romania held its key rate at 5.75% despite
+                falling headline inflation. This piece dissects the policy rationale
+                and what it tells us about transmission lag.
+              </p>
+            </div>
+            <div class="card-foot">
+              <span>May 18, 2025</span>
+              <span>8 min</span>
+            </div>
+          </article>
+
+          <!-- Card 6 -->
+          <article class="card fu d3">
+            <div class="card-thumb-ph">📊</div>
+            <div class="card-body">
+              <span class="tag tag-markets">Markets</span>
+              <h3 class="card-title">Fiscal Deficit and Its Impact on Romanian Bond Spreads</h3>
+              <p class="card-desc">
+                Romania's fiscal deficit widened to 8% of GDP in 2024. This piece
+                examines how sovereign risk has repriced in credit markets, and what
+                it means for the cost of government borrowing.
+              </p>
+            </div>
+            <div class="card-foot">
+              <span>Mar 10, 2025</span>
+              <span>9 min</span>
+            </div>
+          </article>
+
+        </div><!-- end .grid-3 -->
+
+        <div class="text-center mt-8">
+          <a href="blog.html" class="btn btn-outline">View All Articles →</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- KEY INDICATORS TABLE — element + pseudo-class selectors -->
+    <section class="section-sm" style="background:var(--bg-raised); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+      <div class="container">
+        <div class="sec-head">
+          <h2>Key Indicators</h2>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Indicator</th>
+              <th>Value</th>
+              <th>Previous</th>
+              <th>Change</th>
+              <th>Category</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>BNR Key Rate</strong></td>
+              <td>5.75%</td><td>6.00%</td>
+              <td class="num-up">↓ −0.25pp</td>
+              <td><span class="tag tag-monetary">Policy</span></td>
+            </tr>
+            <tr>
+              <td><strong>ROBOR 3M</strong></td>
+              <td>5.92%</td><td>6.15%</td>
+              <td class="num-up">↓ −0.23pp</td>
+              <td><span class="tag tag-banking">Rates</span></td>
+            </tr>
+            <tr>
+              <td><strong>CPI Inflation (YoY)</strong></td>
+              <td>6.1%</td><td>7.0%</td>
+              <td class="num-up">↓ −0.9pp</td>
+              <td><span class="tag tag-monetary">Macro</span></td>
+            </tr>
+            <tr>
+              <td><strong>EUR/RON</strong></td>
+              <td>4.9720</td><td>4.9780</td>
+              <td class="num-up">+0.12%</td>
+              <td><span class="tag tag-markets">FX</span></td>
+            </tr>
+            <tr>
+              <td><strong>BVB BET Index</strong></td>
+              <td>12,840</td><td>12,690</td>
+              <td class="num-up">+1.18%</td>
+              <td><span class="tag tag-markets">Equity</span></td>
+            </tr>
+            <tr>
+              <td><strong>10Y Government Bond</strong></td>
+              <td>6.48%</td><td>6.62%</td>
+              <td class="num-up">↓ −0.14pp</td>
+              <td><span class="tag tag-personal">Fixed Income</span></td>
+            </tr>
+            <tr>
+              <td><strong>GDP Growth Q1 2025</strong></td>
+              <td>1.9%</td><td>2.1%</td>
+              <td class="num-down">↓ −0.2pp</td>
+              <td><span class="tag tag-monetary">Macro</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size:.72rem; color:var(--ink-dim); margin-top:.5rem;">
+          Indicative data for educational purposes. Sources: BNR, INS, BVB — May 2025.
+        </p>
+      </div>
+    </section>
+
+    <!-- BLOCKQUOTE HIGHLIGHT — blockquote ::before pseudo-element -->
+    <section class="section-sm">
+      <div class="container" style="max-width:760px; text-align:center;">
+        <blockquote>
+          The last mile of disinflation is always the hardest. You're fighting
+          entrenched expectations, not just raw commodity costs.
+        </blockquote>
+        <p style="color:var(--ink-dim); font-size:.82rem; margin-top:var(--s3);">
+          — From <em>The ECB's Dilemma</em>, March 2025
+        </p>
+      </div>
+    </section>
+
+    <!-- NEWSLETTER — form with attribute + pseudo-class selectors -->
+    <section class="section" style="background:var(--bg-raised); border-top:1px solid var(--border);">
+      <div class="container" style="max-width:580px; text-align:center;">
+        <span class="eyebrow">Newsletter</span>
+        <h2 style="margin-block:var(--s4) var(--s4);">Stay in the loop</h2>
+        <p style="color:var(--ink-dim); margin-bottom:var(--s6);">
+          Monthly digest of the best finance articles and market notes —
+          written for fellow Finance &amp; Banking students at UVT.
+        </p>
+        <form style="display:flex; gap:var(--s3); flex-wrap:wrap; justify-content:center;">
+          <input type="email" placeholder="your@email.com" required
+                 style="flex:1; min-width:200px;" />
+          <input type="submit" value="Subscribe" />
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================================================
+       FOOTER
+  ================================================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" id="site-logo"
+             style="font-size:1.25rem; margin-bottom:var(--s4); display:inline-flex;">
+            Tcaci Dumitru
+          </a>
+          <p style="font-size:.85rem; color:var(--ink-dim); max-width:290px; margin-top:var(--s3);">
+            Final-year Finance &amp; Banking student originally from Chișinău, Moldova.
+            Notes on markets, monetary policy, and the occasional anomaly.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h5>Navigation</h5>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Topics</h5>
+          <ul>
+            <li><a href="blog.html">Monetary Policy</a></li>
+            <li><a href="blog.html">Capital Markets</a></li>
+            <li><a href="blog.html">Personal Finance</a></li>
+            <li><a href="blog.html">Banking Regulation</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Tcaci Dumitru — Finance &amp; Markets Blog</span>
+        <span>West University of Timișoara · Finance &amp; Banking</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
