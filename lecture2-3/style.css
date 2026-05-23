@@ -1,0 +1,1139 @@
+/* ================================================================
+   STYLE.CSS — Tcaci Dumitru · Finance & Markets Blog
+   Web Design Lab — West University of Timișoara · 2025
+   ================================================================
+
+   SELECTOR INVENTORY (required coverage):
+   ─ Element selectors          : body, h1–h4, p, a, ul, li, table…
+   ─ Class selectors            : .card, .btn, .tag-*, .nav-link…
+   ─ ID selectors               : #site-logo, #hero-home, #featured…
+   ─ Attribute selectors        : input[type="…"], a[target="_blank"],
+                                  [data-category], [data-level]
+   ─ Contextual / descendant    : .post-list article p
+   ─ Child (>)                  : .timeline > li
+   ─ Adjacent sibling (+)       : label + input
+   ─ General sibling (~)        : .filter-bar ~ .result-count
+   ─ Pseudo-classes             : :hover :focus :active :visited
+                                  :nth-child :last-child :first-child
+                                  :disabled :placeholder-shown :checked
+   ─ Pseudo-elements            : ::before ::after on 15+ elements
+   ================================================================ */
+
+/* ----------------------------------------------------------------
+   1. CSS CUSTOM PROPERTIES
+   ---------------------------------------------------------------- */
+:root {
+  /* Palette — charcoal ink + warm cream + ember accent */
+  --bg:           #0f0f0d;
+  --bg-raised:    #161612;
+  --bg-card:      #1c1c17;
+  --border:       #2c2c24;
+  --border-soft:  #232320;
+
+  --ink:          #e9e5d8;        /* body text */
+  --ink-dim:      #7a786a;        /* muted text */
+  --ink-head:     #f4f0e4;        /* headings */
+
+  --gold:         #c9a96e;        /* primary accent */
+  --gold-light:   #dfc08a;
+  --gold-dim:     rgba(201,169,110,.15);
+
+  --blue:         #5b8dee;        /* secondary accent */
+  --blue-dim:     rgba(91,141,238,.14);
+
+  --green:        #5bbf7a;
+  --red:          #d9604e;
+
+  /* Typography */
+  --font-serif:   'Playfair Display', Georgia, serif;
+  --font-sans:    'DM Sans', 'Segoe UI', sans-serif;
+  --font-mono:    'JetBrains Mono', 'Courier New', monospace;
+
+  /* Spacing — rem scale */
+  --s1:  0.25rem;   /*  4px */
+  --s2:  0.5rem;    /*  8px */
+  --s3:  0.75rem;   /* 12px */
+  --s4:  1rem;      /* 16px */
+  --s5:  1.5rem;    /* 24px */
+  --s6:  2rem;      /* 32px */
+  --s8:  3rem;      /* 48px */
+  --s10: 4rem;      /* 64px */
+  --s14: 7rem;      /* 112px */
+
+  /* Radii */
+  --r1: 3px;
+  --r2: 8px;
+  --r3: 14px;
+  --r4: 9999px;
+
+  /* Shadows */
+  --shadow-card: 0 4px 28px rgba(0,0,0,.5);
+  --shadow-glow: 0 0 32px rgba(201,169,110,.14);
+
+  /* Transitions */
+  --t1: 120ms ease;
+  --t2: 260ms ease;
+  --t3: 480ms ease;
+
+  --max: 1120px;
+}
+
+/* ----------------------------------------------------------------
+   2. RESET — element selectors
+   ---------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ELEMENT SELECTOR */
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.75;
+  min-height: 100vh;
+  /* subtle ruled texture */
+  background-image: repeating-linear-gradient(
+    180deg, transparent 0, transparent 47px,
+    rgba(255,255,255,.018) 47px, rgba(255,255,255,.018) 48px
+  );
+}
+
+img  { max-width: 100%; display: block; }
+ul   { list-style: none; }
+
+/* ELEMENT SELECTOR — anchor defaults */
+a {
+  color: var(--gold);
+  text-decoration: none;
+  transition: color var(--t1);
+}
+/* PSEUDO-CLASS :hover on every <a> */
+a:hover { color: var(--ink-head); }
+/* PSEUDO-CLASS :visited on links */
+a:visited { color: var(--gold); }
+/* PSEUDO-CLASS :focus */
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* ----------------------------------------------------------------
+   3. TYPOGRAPHY — element selectors + units
+   ---------------------------------------------------------------- */
+/* clamp() uses viewport width (vw) + rem */
+h1 { font-family: var(--font-serif); font-size: clamp(2rem, 5vw, 3.8rem);
+     font-weight: 700; line-height: 1.15; letter-spacing: -.03em;
+     color: var(--ink-head); }
+
+h2 { font-family: var(--font-serif); font-size: clamp(1.5rem, 3vw, 2.2rem);
+     font-weight: 700; line-height: 1.2; letter-spacing: -.02em;
+     color: var(--ink-head); }
+
+h3 { font-family: var(--font-serif); font-size: clamp(1.15rem, 2vw, 1.5rem);
+     font-weight: 600; line-height: 1.3; color: var(--ink-head); }
+
+h4 { font-family: var(--font-sans);  font-size: 1rem; /* 16px */
+     font-weight: 600; color: var(--ink-head); }
+
+p  { font-size: 1rem; line-height: 1.85; color: var(--ink);
+     margin-bottom: var(--s4); }
+
+/* ELEMENT SELECTOR — blockquote */
+blockquote {
+  border-left: 3px solid var(--gold);
+  padding: var(--s4) var(--s6);
+  margin: var(--s6) 0;
+  background: var(--bg-raised);
+  border-radius: 0 var(--r2) var(--r2) 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.1rem; /* em-like relative feel, px base */
+  color: var(--ink-head);
+  position: relative;
+}
+/* PSEUDO-ELEMENT ::before — opening quotation mark */
+blockquote::before {
+  content: '\201C';
+  position: absolute;
+  top: -10px; left: 14px;
+  font-size: 4rem; /* 64px */
+  line-height: 1;
+  color: var(--gold);
+  font-family: var(--font-serif);
+  opacity: .6;
+}
+
+/* ELEMENT SELECTOR — code */
+code {
+  font-family: var(--font-mono);
+  font-size: .875em;          /* em — relative to parent */
+  background: var(--blue-dim);
+  color: var(--blue);
+  padding: .15em .45em;
+  border-radius: var(--r1);
+}
+
+/* ELEMENT SELECTOR — strong */
+strong { color: var(--ink-head); font-weight: 600; }
+
+/* ----------------------------------------------------------------
+   4. LAYOUT CONTAINERS
+   ---------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--s6);   /* 32px — px unit */
+}
+
+.section { padding-block: var(--s10); }   /* 64px — rem */
+.section-sm { padding-block: var(--s6); }
+
+/* ----------------------------------------------------------------
+   5. FLEXBOX UTILITIES — class selectors
+   ---------------------------------------------------------------- */
+.flex           { display: flex; }
+.flex-col       { flex-direction: column; }
+.flex-wrap      { flex-wrap: wrap; }
+.items-center   { align-items: center; }
+.items-start    { align-items: flex-start; }
+.justify-between{ justify-content: space-between; }
+.justify-center { justify-content: center; }
+.gap-s2  { gap: var(--s2); }
+.gap-s3  { gap: var(--s3); }
+.gap-s4  { gap: var(--s4); }
+.gap-s5  { gap: var(--s5); }
+.gap-s6  { gap: var(--s6); }
+
+/* ----------------------------------------------------------------
+   6. CSS GRID LAYOUTS — class selectors
+   ---------------------------------------------------------------- */
+/* GRID LAYOUT — 2 equal columns */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--s6);
+}
+/* GRID LAYOUT — 3 equal columns */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s5);
+}
+/* GRID LAYOUT — auto-fill responsive */
+.grid-auto {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--s5);
+}
+/* GRID LAYOUT — main + sidebar */
+.layout-sidebar {
+  display: grid;
+  grid-template-columns: 1fr 288px;
+  gap: var(--s10);
+  align-items: start;
+}
+
+/* ----------------------------------------------------------------
+   7. RESPONSIVE BREAKPOINTS — media queries
+   ---------------------------------------------------------------- */
+@media (max-width: 960px) {
+  .grid-3        { grid-template-columns: repeat(2, 1fr); }
+  .layout-sidebar { grid-template-columns: 1fr; }
+}
+@media (max-width: 680px) {
+  .grid-2, .grid-3  { grid-template-columns: 1fr; }
+  .container        { padding-inline: var(--s4); }
+  #featured         { grid-template-columns: 1fr !important; }
+  .featured-art     { display: none; }
+  #profile-card     { flex-direction: column; text-align: center; }
+  .nav-links        { gap: var(--s4); }
+}
+
+/* ----------------------------------------------------------------
+   8. HEADER + NAV — float history note + flexbox
+   ---------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: rgba(15,15,13,.93);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  padding-block: 1.1rem;
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s6);
+}
+
+/* ID SELECTOR — logo */
+#site-logo {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--ink-head);
+  letter-spacing: -.025em;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+}
+/* PSEUDO-ELEMENT ::after — animated gold dot on logo */
+#site-logo::after {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: logo-dot 3s ease-in-out infinite;
+}
+@keyframes logo-dot {
+  0%,100% { transform: scale(1);   opacity: 1; }
+  50%      { transform: scale(.5); opacity: .45; }
+}
+
+/* CLASS SELECTOR — nav links wrapper */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--s6);
+}
+
+/* DESCENDANT SELECTOR: anchors inside .nav-links */
+.nav-links a {
+  font-size: .8rem;             /* 12.8px */
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 3px;
+  transition: color var(--t2);
+}
+/* PSEUDO-ELEMENT ::after — expanding underline */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 2px;
+  background: var(--gold);
+  border-radius: 1px;
+  transition: width var(--t2);
+}
+/* PSEUDO-CLASS :hover on nav anchors */
+.nav-links a:hover            { color: var(--ink-head); text-decoration: none; }
+.nav-links a:hover::after     { width: 100%; }
+/* CLASS SELECTOR — active nav item */
+.nav-links a.active           { color: var(--gold); }
+.nav-links a.active::after    { width: 100%; }
+
+/* ----------------------------------------------------------------
+   9. TICKER — class selector + pseudo-class :hover
+   ---------------------------------------------------------------- */
+.ticker {
+  background: var(--bg-raised);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+  white-space: nowrap;
+  padding-block: .45rem;
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  letter-spacing: .04em;
+}
+.ticker-track {
+  display: inline-flex;
+  gap: var(--s10);
+  animation: scroll-left 32s linear infinite;
+}
+/* PSEUDO-CLASS :hover — pause ticker */
+.ticker:hover .ticker-track   { animation-play-state: paused; }
+@keyframes scroll-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.t-item { display: inline-flex; align-items: center; gap: .5em; }
+.up   { color: var(--green); }
+.down { color: var(--red);   }
+/* PSEUDO-ELEMENT ::before on up/down indicators */
+.up::before   { content: '▲ '; font-size: .6em; }
+.down::before { content: '▼ '; font-size: .6em; }
+
+/* ----------------------------------------------------------------
+   10. HERO — ID selector + pseudo-elements
+   ---------------------------------------------------------------- */
+.hero {
+  padding-block: var(--s14) var(--s10);
+  position: relative;
+  overflow: hidden;
+}
+/* ID SELECTOR */
+#hero-home {
+  background: linear-gradient(150deg, var(--bg) 0%, #191914 55%, var(--bg) 100%);
+}
+/* PSEUDO-ELEMENT ::before — radial glow behind hero */
+#hero-home::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 70% 40%,
+    rgba(201,169,110,.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+/* PSEUDO-ELEMENT ::after — vertical rule line */
+#hero-home::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 38%;
+  width: 1px; height: 100%;
+  background: linear-gradient(180deg, transparent, var(--border), transparent);
+  pointer-events: none;
+}
+
+/* CLASS SELECTOR — eyebrow label */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(201,169,110,.3);
+  padding: .3em 1em;
+  border-radius: var(--r4);
+  margin-bottom: var(--s4);
+}
+/* PSEUDO-ELEMENT ::before — pulsing dot on eyebrow */
+.eyebrow::before {
+  content: '';
+  width: 5px; height: 5px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: .3; transform: scale(.6); }
+}
+
+.hero-title   { max-width: 720px; margin-bottom: var(--s4); }
+.hero-title em { font-style: italic; color: var(--gold); }
+.hero-sub     { font-size: 1.05rem; color: var(--ink-dim);
+                max-width: 520px; margin-bottom: var(--s6); }
+
+/* ----------------------------------------------------------------
+   11. BUTTONS — class selectors + pseudo-classes
+   ---------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  font-family: var(--font-sans);
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: .7em 1.7em;
+  border-radius: var(--r1);
+  border: none;
+  cursor: pointer;
+  transition: all var(--t2);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+/* PSEUDO-ELEMENT ::before — shimmer sweep */
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent,
+    rgba(255,255,255,.12), transparent);
+  transition: left var(--t3);
+}
+.btn:hover::before { left: 100%; }
+
+/* CLASS SELECTOR — primary button */
+.btn-gold {
+  background: var(--gold);
+  color: var(--bg);
+}
+.btn-gold:hover {
+  background: var(--gold-light);
+  color: var(--bg);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201,169,110,.32);
+  text-decoration: none;
+}
+/* CLASS SELECTOR — outline button */
+.btn-outline {
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+}
+.btn-outline:hover {
+  background: var(--gold);
+  color: var(--bg);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+/* PSEUDO-CLASS :active */
+.btn:active { transform: none; box-shadow: none; }
+
+/* ----------------------------------------------------------------
+   12. TAGS / CATEGORY PILLS — class selectors
+   ---------------------------------------------------------------- */
+.tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: .28em .8em;
+  border-radius: var(--r4);
+  transition: filter var(--t1);
+}
+/* CLASS SELECTORS — by topic */
+.tag-monetary { background: rgba(201,169,110,.14); color: var(--gold);
+                border: 1px solid rgba(201,169,110,.28); }
+.tag-banking  { background: rgba(91,141,238,.14);  color: var(--blue);
+                border: 1px solid rgba(91,141,238,.28); }
+.tag-markets  { background: rgba(91,191,122,.12);  color: var(--green);
+                border: 1px solid rgba(91,191,122,.28); }
+.tag-personal { background: rgba(217,96,78,.12);   color: var(--red);
+                border: 1px solid rgba(217,96,78,.28); }
+.tag-career   { background: rgba(180,140,200,.12); color: #c8a0e8;
+                border: 1px solid rgba(180,140,200,.28); }
+
+/* PSEUDO-CLASS :hover on tags */
+.tag:hover { filter: brightness(1.35); cursor: default; }
+
+/* ----------------------------------------------------------------
+   13. SECTION HEADING with ::after rule line
+   ---------------------------------------------------------------- */
+.sec-head {
+  display: flex;
+  align-items: center;
+  gap: var(--s5);
+  margin-bottom: var(--s6);
+}
+.sec-head h2 { font-size: 1.4rem; white-space: nowrap; }
+/* PSEUDO-ELEMENT ::after — decorative line */
+.sec-head::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border), transparent);
+}
+
+/* ----------------------------------------------------------------
+   14. FEATURED POST — ID + grid
+   ---------------------------------------------------------------- */
+#featured {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s10);
+  align-items: center;
+  background: linear-gradient(135deg, #191914, var(--bg-card));
+  border: 1px solid rgba(201,169,110,.18);
+  border-radius: var(--r3);
+  padding: var(--s10);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: var(--s10);
+}
+/* PSEUDO-ELEMENT ::after — large watermark numeral */
+#featured::after {
+  content: '01';
+  position: absolute;
+  bottom: -20px; right: 20px;
+  font-family: var(--font-serif);
+  font-size: 14rem;         /* px — absolute */
+  font-weight: 700;
+  color: rgba(201,169,110,.04);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.featured-img {
+  border-radius: var(--r2);
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+}
+/* PSEUDO-ELEMENT — image placeholder fallback */
+.featured-img-placeholder {
+  border-radius: var(--r2);
+  width: 100%; height: 320px;
+  background: linear-gradient(135deg,
+    rgba(201,169,110,.12), rgba(91,141,238,.1));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 5rem;
+  border: 1px solid var(--border);
+}
+
+/* ----------------------------------------------------------------
+   15. POST CARDS — class selectors + :hover
+   ---------------------------------------------------------------- */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--t2), box-shadow var(--t2), border-color var(--t2);
+}
+/* PSEUDO-CLASS :hover on cards */
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card), var(--shadow-glow);
+  border-color: rgba(201,169,110,.28);
+}
+
+.card-thumb {
+  width: 100%; height: 180px;
+  object-fit: cover;
+}
+.card-thumb-ph {
+  width: 100%; height: 180px;
+  background: linear-gradient(135deg, var(--bg-raised), var(--border));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.5rem;
+}
+.card-body   { padding: var(--s5); flex: 1; display: flex; flex-direction: column; gap: var(--s2); }
+.card-title  { font-family: var(--font-serif); font-size: 1.1rem; line-height: 1.35;
+               color: var(--ink-head); transition: color var(--t1); }
+.card:hover .card-title { color: var(--gold); }
+.card-desc   { font-size: .88rem; color: var(--ink-dim); flex: 1; margin: 0; }
+.card-foot   { padding: var(--s3) var(--s5); border-top: 1px solid var(--border-soft);
+               display: flex; justify-content: space-between; align-items: center;
+               font-size: .75rem; color: var(--ink-dim); }
+
+/* ----------------------------------------------------------------
+   16. FLOAT-BASED LAYOUT DEMO — article with floated image
+   ---------------------------------------------------------------- */
+/* FLOAT LAYOUT — legacy technique demonstrated */
+.float-article .article-img-left {
+  float: left;
+  width: 260px;         /* px unit */
+  margin: 0 var(--s6) var(--s4) 0;
+  border-radius: var(--r2);
+  border: 1px solid var(--border);
+}
+.float-article .article-img-right {
+  float: right;
+  width: 260px;
+  margin: 0 0 var(--s4) var(--s6);
+  border-radius: var(--r2);
+  border: 1px solid var(--border);
+}
+/* CLASS SELECTOR — clearfix */
+.clearfix::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+/* ----------------------------------------------------------------
+   17. ARTICLE BODY — descendant + element selectors
+   ---------------------------------------------------------------- */
+.article-body h2 {
+  margin-top: var(--s8);
+  margin-bottom: var(--s4);
+  padding-left: var(--s4);
+  border-left: 3px solid var(--gold);
+  font-size: 1.45rem;
+}
+.article-body h3 {
+  margin-top: var(--s6);
+  margin-bottom: var(--s3);
+  font-size: 1.2rem;
+}
+.article-body p  { margin-bottom: var(--s4); }
+.article-body ul {
+  padding-left: var(--s6);
+  margin-bottom: var(--s4);
+}
+/* PSEUDO-ELEMENT ::before — custom list bullet */
+.article-body ul li::before {
+  content: '▸';
+  color: var(--gold);
+  margin-right: var(--s2);
+  font-size: .78em;   /* em unit */
+}
+/* DESCENDANT SELECTOR: links inside article body */
+.article-body a { color: var(--blue); text-underline-offset: 3px; }
+.article-body a:hover { color: var(--gold); }
+/* ATTRIBUTE SELECTOR — external links get ↗ */
+.article-body a[target="_blank"]::after { content: ' ↗'; font-size: .72em; vertical-align: super; }
+
+/* DATA ATTRIBUTE SELECTOR */
+[data-highlight] {
+  background: rgba(201,169,110,.07);
+  border: 1px solid rgba(201,169,110,.2);
+  border-radius: var(--r2);
+  padding: var(--s4) var(--s5);
+  margin-block: var(--s5);
+}
+
+/* ----------------------------------------------------------------
+   18. META ROW — sibling selectors + ::before separator
+   ---------------------------------------------------------------- */
+.meta {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  font-size: .78rem;
+  color: var(--ink-dim);
+  flex-wrap: wrap;
+  margin-top: var(--s3);
+}
+/* ADJACENT SIBLING: every .meta span after another gets a dot */
+.meta span + span::before {
+  content: '·';
+  margin-right: var(--s3);
+  color: var(--border);
+}
+
+/* ----------------------------------------------------------------
+   19. DATA TABLE — element + pseudo-class selectors
+   ---------------------------------------------------------------- */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .88rem;
+  margin-block: var(--s5);
+}
+/* ELEMENT SELECTOR */
+.data-table th {
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  text-align: left;
+  padding: var(--s2) var(--s4);
+  border-bottom: 2px solid var(--border);
+}
+.data-table td {
+  padding: var(--s3) var(--s4);
+  border-bottom: 1px solid var(--border-soft);
+  vertical-align: middle;
+}
+/* PSEUDO-CLASS :nth-child(even) — zebra rows */
+.data-table tbody tr:nth-child(even) { background: rgba(255,255,255,.018); }
+/* PSEUDO-CLASS :hover on rows */
+.data-table tbody tr:hover           { background: rgba(201,169,110,.045); }
+/* PSEUDO-CLASS :last-child — remove last border */
+.data-table tbody tr:last-child td   { border-bottom: none; }
+
+.num-up   { color: var(--green); font-weight: 600; }
+.num-down { color: var(--red);   font-weight: 600; }
+
+/* ----------------------------------------------------------------
+   20. FORMS — attribute + pseudo-class selectors
+   ---------------------------------------------------------------- */
+.form-group       { display: flex; flex-direction: column; gap: var(--s1); margin-bottom: var(--s4); }
+.form-group label {
+  font-size: .75rem; font-weight: 600; letter-spacing: .07em;
+  text-transform: uppercase; color: var(--ink-dim);
+}
+/* ATTRIBUTE SELECTOR */
+input[type="text"],
+input[type="email"],
+input[type="search"],
+textarea {
+  width: 100%;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--r1);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: .95rem;
+  padding: .7em 1em;
+  transition: border-color var(--t2), box-shadow var(--t2);
+}
+/* PSEUDO-CLASS :focus on form elements */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="search"]:focus,
+textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201,169,110,.16);
+  outline: none;
+}
+/* PSEUDO-CLASS :placeholder-shown */
+input:placeholder-shown { border-color: var(--border-soft); }
+/* ATTRIBUTE SELECTOR — required */
+input[required] { border-left: 2px solid var(--gold); }
+textarea { resize: vertical; min-height: 130px; }
+
+/* ATTRIBUTE SELECTOR — submit input */
+input[type="submit"] {
+  background: var(--gold); color: var(--bg);
+  font-family: var(--font-sans); font-size: .82rem;
+  font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  padding: .75em 2em; border: none; border-radius: var(--r1);
+  cursor: pointer; transition: all var(--t2); width: auto;
+}
+input[type="submit"]:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(201,169,110,.3);
+}
+/* PSEUDO-CLASS :active */
+input[type="submit"]:active { transform: none; }
+
+/* ATTRIBUTE SELECTOR — checkbox */
+input[type="checkbox"] {
+  accent-color: var(--gold);
+  width: 15px; height: 15px; cursor: pointer;
+}
+/* PSEUDO-CLASS :checked */
+input[type="checkbox"]:checked + label { color: var(--ink); }
+
+/* ----------------------------------------------------------------
+   21. PROGRESS BARS — class selectors
+   ---------------------------------------------------------------- */
+.prog-wrap   { margin-bottom: var(--s4); }
+.prog-labels { display: flex; justify-content: space-between;
+               font-size: .75rem; color: var(--ink-dim); margin-bottom: .35rem; }
+.prog-track  { height: 5px; background: var(--border);
+               border-radius: var(--r4); overflow: hidden; }
+.prog-fill   {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  border-radius: var(--r4);
+  transition: width 1.2s ease;
+}
+.prog-fill.blue  { background: linear-gradient(90deg, var(--blue), #82b0f9); }
+.prog-fill.green { background: linear-gradient(90deg, var(--green), #7de8a0); }
+.prog-fill.red   { background: linear-gradient(90deg, var(--red), #e8806e); }
+
+/* ----------------------------------------------------------------
+   22. TIMELINE — child + pseudo-elements
+   ---------------------------------------------------------------- */
+.timeline { position: relative; }
+/* CHILD SELECTOR: direct li */
+.timeline > li {
+  position: relative;
+  padding-left: var(--s6);
+  padding-bottom: var(--s5);
+}
+/* PSEUDO-ELEMENT ::before — dot */
+.timeline > li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 5px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 0 2px var(--gold);
+  z-index: 1;
+}
+/* PSEUDO-ELEMENT ::after — connector line */
+.timeline > li::after {
+  content: '';
+  position: absolute;
+  left: 4px; top: 18px; bottom: 0;
+  width: 2px;
+  background: var(--border);
+}
+/* PSEUDO-CLASS :last-child — remove last line */
+.timeline > li:last-child::after { display: none; }
+/* PSEUDO-CLASS :hover changes dot */
+.timeline > li:hover::before { background: var(--blue); box-shadow: 0 0 0 2px var(--blue); }
+
+.tl-year { font-family: var(--font-mono); font-size: .68rem;
+           letter-spacing: .12em; text-transform: uppercase;
+           color: var(--gold); margin-bottom: .2rem; }
+/* GENERAL SIBLING SELECTOR: p after h4 in timeline */
+.tl-entry h4 ~ p { color: var(--ink-dim); font-size: .85rem; margin: 0; }
+
+/* ----------------------------------------------------------------
+   23. SIDEBAR WIDGETS — class selectors
+   ---------------------------------------------------------------- */
+.widget {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: var(--s5);
+  margin-bottom: var(--s5);
+}
+.widget-title {
+  font-family: var(--font-mono);
+  font-size: .68rem; letter-spacing: .13em; text-transform: uppercase;
+  color: var(--ink-dim); margin-bottom: var(--s4);
+  padding-bottom: var(--s3); border-bottom: 1px solid var(--border);
+}
+
+/* ----------------------------------------------------------------
+   24. BLOG LIST PAGE — contextual + sibling selectors
+   ---------------------------------------------------------------- */
+.post-row {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: var(--s5);
+  align-items: start;
+  padding: var(--s5) 0;
+  border-bottom: 1px solid var(--border-soft);
+  transition: background var(--t1);
+}
+/* PSEUDO-CLASS :last-child removes border */
+.post-row:last-child { border-bottom: none; }
+/* PSEUDO-CLASS :hover on post rows */
+.post-row:hover { background: rgba(201,169,110,.028); border-radius: var(--r1); }
+
+.post-num {
+  font-family: var(--font-serif);
+  font-size: 2rem;  /* px */
+  font-weight: 700;
+  color: var(--border);
+  line-height: 1.1;
+  text-align: right;
+}
+/* CHILD SELECTOR: direct h3 of .post-body */
+.post-body > h3 { font-size: 1.1rem; margin-bottom: .35rem; transition: color var(--t1); }
+.post-row:hover .post-body > h3 { color: var(--gold); }
+
+/* FILTER BUTTONS */
+.filters { display: flex; gap: var(--s2); flex-wrap: wrap; margin-bottom: var(--s6); }
+.filt-btn {
+  font-family: var(--font-mono); font-size: .68rem; letter-spacing: .1em;
+  text-transform: uppercase; background: transparent; color: var(--ink-dim);
+  border: 1px solid var(--border); border-radius: var(--r4);
+  padding: .35em 1em; cursor: pointer; transition: all var(--t2);
+}
+/* PSEUDO-CLASS :hover on filter buttons */
+.filt-btn:hover      { border-color: var(--gold); color: var(--gold); }
+/* CLASS SELECTOR — active filter */
+.filt-btn.on         { background: var(--gold); border-color: var(--gold); color: var(--bg); font-weight: 700; }
+/* PSEUDO-CLASS :focus */
+.filt-btn:focus      { outline: 2px solid var(--gold); outline-offset: 2px; }
+/* PSEUDO-CLASS :disabled */
+.filt-btn:disabled   { opacity: .3; cursor: not-allowed; }
+
+/* GENERAL SIBLING: .filters ~ .result-count */
+.filters ~ .result-count { font-size: .75rem; color: var(--ink-dim); margin-bottom: var(--s4); }
+
+/* PAGINATION */
+.pager { display: flex; gap: var(--s2); justify-content: center; margin-top: var(--s8); }
+.pg-btn {
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border); border-radius: var(--r1);
+  font-family: var(--font-mono); font-size: .82rem;
+  color: var(--ink-dim); cursor: pointer; background: transparent;
+  transition: all var(--t1);
+}
+/* PSEUDO-CLASS :hover */
+.pg-btn:hover  { border-color: var(--gold); color: var(--gold); }
+/* CLASS SELECTOR — current page */
+.pg-btn.cur    { background: var(--gold); border-color: var(--gold); color: var(--bg); font-weight: 700; }
+/* PSEUDO-CLASS :disabled */
+.pg-btn:disabled { opacity: .3; cursor: not-allowed; }
+
+/* SEARCH INPUT expansion on :focus */
+input[type="search"] { width: 240px; transition: all var(--t2), border-color var(--t2); }
+input[type="search"]:focus { width: 290px; }
+/* ADJACENT SIBLING SELECTOR: hint after search input */
+input[type="search"] + .hint { font-size: .72rem; color: var(--ink-dim); margin-left: var(--s2); }
+
+/* ----------------------------------------------------------------
+   25. ABOUT PAGE — ID + attribute + data selectors
+   ---------------------------------------------------------------- */
+#profile-card {
+  display: flex;
+  align-items: center;
+  gap: var(--s8);
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-raised));
+  border: 1px solid var(--border);
+  border-radius: var(--r3);
+  padding: var(--s8);
+  margin-bottom: var(--s10);
+  position: relative;
+  overflow: hidden;
+}
+/* PSEUDO-ELEMENT ::before — gradient sweep */
+#profile-card::before {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  width: 40%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(201,169,110,.04));
+  pointer-events: none;
+}
+/* PSEUDO-ELEMENT ::after — Moldova flag stripe */
+#profile-card::after {
+  content: 'MD → RO';
+  position: absolute; top: var(--s4); right: var(--s5);
+  font-family: var(--font-mono); font-size: .62rem;
+  letter-spacing: .15em; color: rgba(201,169,110,.35);
+}
+
+.avatar {
+  width: 108px; height: 108px; border-radius: 50%;
+  overflow: hidden; flex-shrink: 0;
+  border: 2px solid rgba(201,169,110,.35);
+  box-shadow: var(--shadow-glow);
+}
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+/* DATA ATTRIBUTE SELECTORS — skill level borders */
+[data-level="advanced"]     { border-color: rgba(201,169,110,.5) !important; }
+[data-level="intermediate"] { border-color: rgba(91,141,238,.5)  !important; }
+[data-level="beginner"]     { border-color: rgba(91,191,122,.5)  !important; }
+
+/* ATTRIBUTE SELECTOR — [data-category] chips on interests grid */
+[data-category] {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: var(--s5);
+  text-align: center;
+  transition: all var(--t2);
+  cursor: default;
+}
+[data-category]:hover {
+  border-color: rgba(201,169,110,.3);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-glow);
+}
+/* PSEUDO-ELEMENT ::after — underline on interest titles */
+[data-category] h4::after {
+  content: '';
+  display: block; width: 24px; height: 2px;
+  background: var(--gold); border-radius: 1px;
+  margin: .45rem auto 0;
+  transition: width var(--t2);
+}
+[data-category]:hover h4::after { width: 52px; }
+
+/* Philosophy quote box */
+.phil-quote {
+  background: linear-gradient(135deg, #191914, var(--bg-card));
+  border: 1px solid rgba(201,169,110,.2);
+  border-radius: var(--r3);
+  padding: var(--s10);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+/* PSEUDO-ELEMENT ::before — giant background quote mark */
+.phil-quote::before {
+  content: '\201C';
+  position: absolute; top: -40px; left: 20px;
+  font-size: 20rem; /* px — absolute, intentional visual effect */
+  font-family: var(--font-serif);
+  color: rgba(201,169,110,.05);
+  line-height: 1; pointer-events: none;
+}
+.phil-quote blockquote {
+  background: none; border: none; padding: 0;
+  font-size: 1.35rem; max-width: 660px; margin: 0 auto;
+}
+.phil-quote blockquote::before { display: none; }
+
+/* ----------------------------------------------------------------
+   26. FOOTER — element + class + pseudo-element selectors
+   ---------------------------------------------------------------- */
+.site-footer {
+  background: var(--bg-raised);
+  border-top: 1px solid var(--border);
+  padding-block: var(--s10) var(--s6);
+  margin-top: var(--s14);
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--s10);
+  padding-bottom: var(--s8);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--s5);
+}
+@media (max-width: 680px) { .footer-grid { grid-template-columns: 1fr; } }
+
+.footer-col h5 {
+  font-family: var(--font-mono); font-size: .68rem;
+  letter-spacing: .15em; text-transform: uppercase;
+  color: var(--ink-dim); margin-bottom: var(--s4);
+}
+.footer-col ul li { margin-bottom: var(--s3); }
+/* PSEUDO-ELEMENT ::before on footer list items */
+.footer-col ul li::before { content: '— '; color: var(--border-soft); font-size: .8em; }
+.footer-col ul li a { font-size: .88rem; color: var(--ink-dim); }
+/* PSEUDO-CLASS :hover on footer links */
+.footer-col ul li a:hover { color: var(--gold); text-decoration: none; }
+
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: .75rem; color: var(--ink-dim); flex-wrap: wrap; gap: var(--s3);
+}
+
+/* ----------------------------------------------------------------
+   27. UTILITIES
+   ---------------------------------------------------------------- */
+.text-gold    { color: var(--gold); }
+.text-dim     { color: var(--ink-dim); }
+.text-center  { text-align: center; }
+.mb-4  { margin-bottom: var(--s4); }
+.mb-5  { margin-bottom: var(--s5); }
+.mb-6  { margin-bottom: var(--s6); }
+.mb-8  { margin-bottom: var(--s8); }
+.mt-5  { margin-top: var(--s5); }
+.mt-6  { margin-top: var(--s6); }
+.mt-8  { margin-top: var(--s8); }
+.mt-10 { margin-top: var(--s10); }
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin-block: var(--s8);
+}
+
+/* PSEUDO-CLASS :first-child / :last-child utility */
+.nav-links a:first-child { margin-left: 0; }
+.card:last-child          { margin-bottom: 0; }
+
+/* ----------------------------------------------------------------
+   28. ANIMATIONS — fade-up on load
+   ---------------------------------------------------------------- */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fu   { animation: fade-up .55s ease both; }
+.d1   { animation-delay: .08s; }
+.d2   { animation-delay: .16s; }
+.d3   { animation-delay: .25s; }
+.d4   { animation-delay: .34s; }
+.d5   { animation-delay: .44s; }
+
+/* ----------------------------------------------------------------
+   29. SCROLLBAR
+   ---------------------------------------------------------------- */
+::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
