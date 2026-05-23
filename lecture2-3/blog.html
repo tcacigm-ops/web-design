@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Tcaci Dumitru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── PAGE-SPECIFIC STYLES ─────────────────────────────────────
+       Demonstrates additional selectors unique to blog.html
+    ──────────────────────────────────────────────────────────────── */
+
+    /* CONTEXTUAL (DESCENDANT) SELECTOR:
+       only <p> tags that are descendants of .post-body */
+    .post-body p {
+      font-size: .88rem;
+      color: var(--ink-dim);
+      margin-bottom: 0;
+      line-height: 1.65;
+    }
+
+    /* ADJACENT SIBLING SELECTOR:
+       .tag immediately followed by .tag gets left margin */
+    .post-body .tag + .tag { margin-left: var(--s1); }
+
+    /* CHILD SELECTOR:
+       direct <a> child of .post-body > h3  */
+    .post-body > h3 > a {
+      color: var(--ink-head);
+      text-decoration: none;
+      transition: color var(--t2);
+    }
+    .post-body > h3 > a:hover { color: var(--gold); }
+
+    /* ATTRIBUTE SELECTOR: inputs with placeholder */
+    input[type="search"]::placeholder { color: var(--ink-dim); font-style: italic; }
+
+    /* ── SIDEBAR specific ── */
+
+    /* DESCENDANT SELECTOR: li > a inside .widget */
+    .widget ul li a {
+      font-size: .88rem;
+      color: var(--ink-dim);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: .35rem 0;
+      border-bottom: 1px solid var(--border-soft);
+      transition: color var(--t1);
+      text-decoration: none;
+    }
+    /* PSEUDO-CLASS :hover on widget links */
+    .widget ul li a:hover { color: var(--gold); }
+
+    /* PSEUDO-CLASS :last-child — remove last border in widget list */
+    .widget ul li:last-child a { border-bottom: none; }
+
+    /* PSEUDO-ELEMENT ::before on widget list items */
+    .widget ul li::before { content: none; } /* override global footer rule */
+
+    /* ATTRIBUTE SELECTOR — external resource links */
+    .widget a[href^="https"]::after {
+      content: ' ↗';
+      font-size: .68em;
+      vertical-align: super;
+      color: var(--blue);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" id="site-logo">Tcaci Dumitru</a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="blog.html" class="active">Blog</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="ticker">
+    <div class="ticker-track">
+      <span class="t-item">BVB BET <span class="up">12,840 +1.2%</span></span>
+      <span class="t-item">EUR/RON <span class="down">4.97 −0.05%</span></span>
+      <span class="t-item">USD/RON <span class="up">4.62 +0.3%</span></span>
+      <span class="t-item">BNR Rate <span class="up">5.75%</span></span>
+      <span class="t-item">CPI YoY <span class="down">6.1%</span></span>
+      <span class="t-item">ROBOR 3M <span class="up">5.92%</span></span>
+      <span class="t-item">BVB BET <span class="up">12,840 +1.2%</span></span>
+      <span class="t-item">EUR/RON <span class="down">4.97 −0.05%</span></span>
+      <span class="t-item">USD/RON <span class="up">4.62 +0.3%</span></span>
+      <span class="t-item">BNR Rate <span class="up">5.75%</span></span>
+      <span class="t-item">CPI YoY <span class="down">6.1%</span></span>
+      <span class="t-item">ROBOR 3M <span class="up">5.92%</span></span>
+    </div>
+  </div>
+
+  <!-- PAGE HERO — no full-height, compact -->
+  <section class="hero" style="padding-block:5rem 3.5rem; background:var(--bg-raised); border-bottom:1px solid var(--border);">
+    <div class="container">
+      <span class="eyebrow fu">Spring 2025</span>
+      <h1 class="fu d1" style="font-size:clamp(2rem,4vw,3rem); margin-bottom:var(--s4);">All Articles</h1>
+      <p class="hero-sub fu d2" style="margin-bottom:var(--s6);">
+        Essays and analyses written during my final year at UVT Timișoara —
+        connecting economic theory with what's actually happening in Romanian
+        and European markets.
+      </p>
+      <!-- ATTRIBUTE SELECTOR: input[type="search"] -->
+      <div class="flex items-center gap-s3 fu d3">
+        <input type="search" placeholder="Search articles…" aria-label="Search articles" />
+        <span class="hint">↵ to search</span>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <div class="container section">
+      <div class="layout-sidebar">
+
+        <!-- MAIN CONTENT -->
+        <div>
+
+          <!-- FILTER BAR — class + pseudo-class selectors -->
+          <div class="filters">
+            <button class="filt-btn on"       data-filter="all">All</button>
+            <button class="filt-btn"          data-filter="monetary">Monetary Policy</button>
+            <button class="filt-btn"          data-filter="banking">Banking</button>
+            <button class="filt-btn"          data-filter="markets">Capital Markets</button>
+            <button class="filt-btn"          data-filter="personal">Personal Finance</button>
+            <button class="filt-btn"          data-filter="career">Career</button>
+          </div>
+
+          <!-- GENERAL SIBLING: .filters ~ .result-count -->
+          <p class="result-count">Showing 5 articles</p>
+
+          <!-- POST LIST — contextual selectors, child selector, pseudo-classes -->
+          <div id="post-list">
+
+            <!-- POST 1 -->
+            <div class="post-row" data-cat="monetary">
+              <div class="post-num">01</div>
+              <div class="post-body">
+                <div style="display:flex; gap:var(--s2); flex-wrap:wrap; margin-bottom:.5rem; align-items:center;">
+                  <span class="tag tag-monetary">Monetary Policy</span>
+                  <span style="font-family:var(--font-mono); font-size:.68rem; color:var(--ink-dim);">8 min</span>
+                </div>
+                <h3><a href="#">The ECB's Dilemma: Cutting Rates in an Uncertain Europe</a></h3>
+                <p>
+                  When the European Central Bank gathered in Frankfurt last February, the agenda was
+                  dominated by a single question: how fast, and how far, should rates fall? European
+                  inflation has retreated from its 2022 peak, yet services inflation remains sticky.
+                </p>
+                <div class="meta mt-5" style="margin-top:.6rem;">
+                  <span>March 4, 2025</span>
+                  <span>Monetary Economics</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- POST 2 -->
+            <div class="post-row" data-cat="markets">
+              <div class="post-num">02</div>
+              <div class="post-body">
+                <div style="display:flex; gap:var(--s2); flex-wrap:wrap; margin-bottom:.5rem; align-items:center;">
+                  <span class="tag tag-markets">Capital Markets</span>
+                  <span style="font-family:var(--font-mono); font-size:.68rem; color:var(--ink-dim);">6 min</span>
+                </div>
+                <h3><a href="#">Why the Yield Curve Still Matters (Even When It's Wrong)</a></h3>
+                <p>
+                  The yield curve has been inverted longer than almost any period in modern history,
+                  and yet the widely predicted recession has not arrived in the form anyone expected.
+                  What matters is the mechanism — and the delay is informative, not a refutation.
+                </p>
+                <div class="meta" style="margin-top:.6rem;">
+                  <span>February 18, 2025</span>
+                  <span>Fixed Income</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- POST 3 -->
+            <div class="post-row" data-cat="banking">
+              <div class="post-num">03</div>
+              <div class="post-body">
+                <div style="display:flex; gap:var(--s2); flex-wrap:wrap; margin-bottom:.5rem; align-items:center;">
+                  <span class="tag tag-banking">Banking</span>
+                  <span style="font-family:var(--font-mono); font-size:.68rem; color:var(--ink-dim);">7 min</span>
+                </div>
+                <h3><a href="#">Basel III Endgame: What It Actually Means for Romanian Banks</a></h3>
+                <p>
+                  The final Basel III capital reforms are approaching EU implementation. The downstream
+                  effects on smaller CEE institutions — many of them Austrian and French subsidiaries —
+                  are equally important to understand as their effects on G-SIBs.
+                </p>
+                <div class="meta" style="margin-top:.6rem;">
+                  <span>February 3, 2025</span>
+                  <span>Banking Regulation</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- POST 4 -->
+            <div class="post-row" data-cat="personal">
+              <div class="post-num">04</div>
+              <div class="post-body">
+                <div style="display:flex; gap:var(--s2); flex-wrap:wrap; margin-bottom:.5rem; align-items:center;">
+                  <span class="tag tag-personal">Personal Finance</span>
+                  <span style="font-family:var(--font-mono); font-size:.68rem; color:var(--ink-dim);">5 min</span>
+                </div>
+                <h3><a href="#">Compounding Is Boring. That's Exactly the Point.</a></h3>
+                <p>
+                  Everyone in finance knows the compound interest formula. Not everyone internalizes it.
+                  There is a strange gap between intellectual knowledge and behavioral action when it comes
+                  to long-term wealth building — and I've been thinking about why that gap exists.
+                </p>
+                <div class="meta" style="margin-top:.6rem;">
+                  <span>January 20, 2025</span>
+                  <span>Investment</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- POST 5 -->
+            <div class="post-row" data-cat="career">
+              <div class="post-num">05</div>
+              <div class="post-body">
+                <div style="display:flex; gap:var(--s2); flex-wrap:wrap; margin-bottom:.5rem; align-items:center;">
+                  <span class="tag tag-career">Career</span>
+                  <span style="font-family:var(--font-mono); font-size:.68rem; color:var(--ink-dim);">9 min</span>
+                </div>
+                <h3><a href="#">What Six Months at a Commercial Bank Actually Taught Me</a></h3>
+                <p>
+                  I completed a six-month internship in the Corporate Banking division of one of Romania's
+                  top-three commercial banks. The most useful skill I developed had nothing to do with
+                  spreadsheets: it was the ability to read a room during a client meeting.
+                </p>
+                <div class="meta" style="margin-top:.6rem;">
+                  <span>January 7, 2025</span>
+                  <span>Internship · Career</span>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- #post-list -->
+
+          <!-- PAGINATION — :hover :disabled pseudo-classes -->
+          <nav class="pager" aria-label="Pagination">
+            <button class="pg-btn" disabled aria-label="Previous">‹</button>
+            <button class="pg-btn cur" aria-current="page">1</button>
+            <button class="pg-btn">2</button>
+            <button class="pg-btn">3</button>
+            <button class="pg-btn" aria-label="Next">›</button>
+          </nav>
+
+        </div><!-- end main col -->
+
+        <!-- SIDEBAR -->
+        <aside>
+
+          <!-- Topics widget -->
+          <div class="widget">
+            <p class="widget-title">Topics</p>
+            <ul style="list-style:none;">
+              <li>
+                <a href="#" onclick="filterPosts('monetary'); return false;">
+                  <span>Monetary Policy</span>
+                  <span class="tag tag-monetary">2</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" onclick="filterPosts('banking'); return false;">
+                  <span>Banking</span>
+                  <span class="tag tag-banking">1</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" onclick="filterPosts('markets'); return false;">
+                  <span>Capital Markets</span>
+                  <span class="tag tag-markets">1</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" onclick="filterPosts('personal'); return false;">
+                  <span>Personal Finance</span>
+                  <span class="tag tag-personal">1</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" onclick="filterPosts('career'); return false;">
+                  <span>Career</span>
+                  <span class="tag tag-career">1</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Reading time widget -->
+          <div class="widget">
+            <p class="widget-title">Avg. Reading Time</p>
+            <div class="prog-wrap">
+              <div class="prog-labels"><span>Monetary</span><span>8 min</span></div>
+              <div class="prog-track"><div class="prog-fill" style="width:80%"></div></div>
+            </div>
+            <div class="prog-wrap">
+              <div class="prog-labels"><span>Markets</span><span>6 min</span></div>
+              <div class="prog-track"><div class="prog-fill blue" style="width:60%"></div></div>
+            </div>
+            <div class="prog-wrap">
+              <div class="prog-labels"><span>Banking</span><span>7 min</span></div>
+              <div class="prog-track"><div class="prog-fill green" style="width:70%"></div></div>
+            </div>
+            <div class="prog-wrap">
+              <div class="prog-labels"><span>Career</span><span>9 min</span></div>
+              <div class="prog-track"><div class="prog-fill red" style="width:90%"></div></div>
+            </div>
+          </div>
+
+          <!-- External resources — attribute selector a[href^="https"] -->
+          <div class="widget">
+            <p class="widget-title">Primary Sources</p>
+            <ul style="list-style:none;">
+              <li>
+                <a href="https://www.bnr.ro" target="_blank">BNR — National Bank of Romania</a>
+              </li>
+              <li>
+                <a href="https://www.bvb.ro" target="_blank">BVB — Bucharest Stock Exchange</a>
+              </li>
+              <li>
+                <a href="https://www.insse.ro" target="_blank">INS — Statistics Romania</a>
+              </li>
+              <li>
+                <a href="https://www.ecb.europa.eu" target="_blank">European Central Bank</a>
+              </li>
+              <li>
+                <a href="https://www.bis.org" target="_blank">Bank for International Settlements</a>
+              </li>
+            </ul>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" id="site-logo"
+             style="font-size:1.25rem; margin-bottom:var(--s4); display:inline-flex;">
+            Tcaci Dumitru
+          </a>
+          <p style="font-size:.85rem; color:var(--ink-dim); max-width:290px; margin-top:var(--s3);">
+            Final-year Finance &amp; Banking student from Chișinău, Moldova,
+            studying at West University of Timișoara.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h5>Navigation</h5>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Topics</h5>
+          <ul>
+            <li><a href="#">Monetary Policy</a></li>
+            <li><a href="#">Capital Markets</a></li>
+            <li><a href="#">Personal Finance</a></li>
+            <li><a href="#">Banking Regulation</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Tcaci Dumitru — Finance &amp; Markets Blog</span>
+        <span>West University of Timișoara · Finance &amp; Banking</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Filter button interactivity
+    function filterPosts(cat) {
+      document.querySelectorAll('.filt-btn').forEach(b => b.classList.remove('on'));
+      const matching = document.querySelector(`.filt-btn[data-filter="${cat}"]`);
+      if (matching) matching.classList.add('on');
+
+      const rows = document.querySelectorAll('#post-list .post-row');
+      let count = 0;
+      rows.forEach(row => {
+        const show = cat === 'all' || row.dataset.cat === cat;
+        row.style.display = show ? '' : 'none';
+        if (show) count++;
+      });
+      document.querySelector('.result-count').textContent =
+        `Showing ${count} article${count !== 1 ? 's' : ''}`;
+    }
+
+    document.querySelectorAll('.filt-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        filterPosts(this.dataset.filter);
+      });
+    });
+  </script>
+</body>
+</html>
